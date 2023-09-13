@@ -6,7 +6,6 @@ public class Emote : MonoBehaviour
 {
     //THIS SCRIPT CONTROLS THE EMOTES OF THE CHARACTER 
     [SerializeField] private Animator m_Animator;
-    [SerializeField] private PlayerAnimation m_PlayerAnimation;
 
     private List<int> m_DanceHashCodes = new List<int>();
     private int m_CurrentDanceIndex = 0;
