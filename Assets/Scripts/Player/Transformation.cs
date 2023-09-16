@@ -20,6 +20,7 @@ public class Transformation : MonoBehaviour
     [SerializeField] private float m_TransformationCoolDown;
     [SerializeField] private float m_SwitchFormTimer;
     public bool IsHuman {get{return m_IsHuman;} set {m_IsHuman = value;}}
+    public bool CanTransform {get{return m_CanTransform;} set {m_CanTransform = value;}}
 
     void Start() 
     {
@@ -32,6 +33,7 @@ public class Transformation : MonoBehaviour
 
     void Update() 
     {
+
         if(HandleInputs.Instance.IsTransformedPressed() && m_CanTransform) 
         {
             StartCoroutine(SwitchForms(m_SwitchFormTimer));

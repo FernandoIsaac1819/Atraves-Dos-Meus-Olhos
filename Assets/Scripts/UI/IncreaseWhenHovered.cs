@@ -14,6 +14,7 @@ public class IncreaseWhenHovered : MonoBehaviour, IPointerEnterHandler, IPointer
         originalScale = transform.localScale; 
     }
 
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = originalScale * hoverScaleFactor;

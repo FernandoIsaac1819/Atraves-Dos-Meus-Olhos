@@ -20,9 +20,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_LoadScreenPanel;
     [SerializeField] private GameObject m_StartMenuPanel;
 
-    void Start()
+    void Awake() 
     {
         LoadStartMenu();
+    } 
+
+    void Start()
+    {
         m_LoadScreenPanel.SetActive(false);
     }
 
@@ -36,7 +40,6 @@ public class UIManager : MonoBehaviour
     public void StartGame() 
     {
         m_StartMenuPanelAnimator.SetBool("StartOn", false);
-        m_GlowAnimator.SetTrigger("BottomGlow");
         StartCoroutine(DeactivateStartCanvas(m_ExitStartMenuTime));
     }
 

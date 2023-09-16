@@ -17,6 +17,7 @@ public class ControlCatFace : MonoBehaviour
         initialFacePosition = catFace.anchoredPosition; // Store the initial position of the cat face
     }
 
+
     private void Update()
     {
         // Get the mouse position in screen coordinates

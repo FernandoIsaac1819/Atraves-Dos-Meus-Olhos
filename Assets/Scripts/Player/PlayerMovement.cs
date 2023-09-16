@@ -138,11 +138,13 @@ public class PlayerMovement : MonoBehaviour
 		{
 			m_GroundNormal = hitInfo.normal;
 			m_IsGrounded = true; 
+            m_Transformation.CanTransform = true;
 		}
 		else
 		{
 			m_IsGrounded = false;
 			m_GroundNormal = Vector3.up;
+            m_Transformation.CanTransform = false;
 		}
 	}
 

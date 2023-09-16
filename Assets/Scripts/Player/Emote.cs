@@ -5,8 +5,7 @@ using UnityEngine;
 public class Emote : MonoBehaviour
 {
     //THIS SCRIPT CONTROLS THE EMOTES OF THE CHARACTER 
-    [SerializeField] private Animator m_Animator;
-
+    private Animator m_Animator;
     private List<int> m_DanceHashCodes = new List<int>();
     private int m_CurrentDanceIndex = 0;
     private bool m_CanChange = true;
