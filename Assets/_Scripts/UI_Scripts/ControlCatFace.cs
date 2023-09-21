@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Controls the face of the cat with the mouse object
+/// </summary>
 public class ControlCatFace : MonoBehaviour
 {
     public RectTransform catBody; 
@@ -21,7 +23,7 @@ public class ControlCatFace : MonoBehaviour
     private void Update()
     {
         Vector2 mousePosition = Input.mousePosition;
-
+        
         Vector2 localMousePosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(catBody, mousePosition, uiCamera, out localMousePosition);
 

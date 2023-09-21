@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// The transformation mechanic of the player
+/// </summary>
 public class Transformation : MonoBehaviour
 {
     [SerializeField] private Animator m_TransformationAnimator;
@@ -33,7 +35,6 @@ public class Transformation : MonoBehaviour
 
     void Update() 
     {
-
         if(HandleInputs.Instance.IsTransformedPressed() && m_CanTransform) 
         {
             StartCoroutine(SwitchForms(m_SwitchFormTimer));
@@ -41,6 +42,11 @@ public class Transformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switches from cat to human and vice versa, switches the colliders and triggers transformation animations
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
     IEnumerator SwitchForms(float time) 
     {
         if(m_IsHuman) 
@@ -61,6 +67,11 @@ public class Transformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Controls the transformation cool down
+    /// </summary>
+    /// <param name="time"> The amount of time passed before the player can transform again</param>
+    /// <returns></returns>
     IEnumerator TransformationCoolDown(float time) 
     {
         m_CanTransform = false;

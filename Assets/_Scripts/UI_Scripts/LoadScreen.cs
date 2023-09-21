@@ -1,112 +1,78 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
-using Unity.Loading;
+using TMPro;
+using Unity.VisualScripting;
 
 public class LoadScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject m_MainLoadScreen;
-    [SerializeField] private TextMeshProUGUI m_Percentage;
-    [SerializeField] private Image [] m_FillImages;
-    [SerializeField] private GameObject [] m_LoadScreens;
-    [SerializeField] private float m_FillSpeed = 0.25f;
+    public static LoadScreen Instance {get; private set;}
+    public Animator animator;
+    public CanvasGroup canvas;
+    [SerializeField] private TextMeshProUGUI percentageText;
+    [SerializeField] private Image[] fillImages;
+    [SerializeField] private GameObject[] loadScreens;
+    [SerializeField] private float fillSpeed = 0.25f;
 
-    private float m_CurrentFill = 0;
-    private float m_targetFill = 1;
-    private int m_RandomIndex;
+    private float targetFill = 0;
+    private int randomIndex;
 
-    void Start() 
+    void Awake() 
     {
-        m_MainLoadScreen.SetActive(false);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Update() 
+    private void Start()
     {
-        Loading();
+        canvas.alpha = 0;
+        LevelManager.Instance.OnLoadingProgress += UpdateLoadingUI;
     }
 
-    public void LoadScene(string scene)
+    private void Update()
     {
-        StartCoroutine(loadScene_Coroutine(scene));
+        if (fillImages[randomIndex] != null)
+        {
+            float currentFill = Mathf.MoveTowards(fillImages[randomIndex].fillAmount, targetFill, Time.deltaTime * fillSpeed);
+            UpdatePercentageText(currentFill);
+        }
     }
 
-    private IEnumerator loadScene_Coroutine(string scene)
+    private void UpdateLoadingUI(float progress)
     {
-        m_MainLoadScreen.SetActive(true);
-
+        targetFill = progress;
         SetLoadScreen();
-
-        m_CurrentFill = 0;
-
-        AsyncOperation Scene = SceneManager.LoadSceneAsync(scene);
-        Scene.allowSceneActivation = false;
-
-        while (!Scene.isDone)
-        {
-            // If the loading progress reaches 0.9f, set target progress to 1f
-            if (Scene.progress >= 0.9f)
-            {
-                m_targetFill = 1f;
-            }
-            else
-            {
-                // Otherwise, update the target progress based on the scene's loading progress
-                m_targetFill = Scene.progress;
-            }
-
-            // If the loading progress reaches 0.9f and fill amount is full, activate the scene
-            if (Scene.progress >= 0.9f && Mathf.Approximately(m_FillImages[m_RandomIndex].fillAmount, 1f))
-            {
-                yield return new WaitForSeconds(1f);
-                Scene.allowSceneActivation = true;
-            }
-
-            yield return null;
-        }
     }
 
-    private void SetLoadScreen() 
+    private void SetLoadScreen()
     {
-        m_RandomIndex = UnityEngine.Random.Range(0, m_LoadScreens.Length);
+        randomIndex = Random.Range(0, loadScreens.Length);
 
-        for(int i = 0; i < m_LoadScreens.Length; i++) 
+        for (int i = 0; i < loadScreens.Length; i++)
         {
-            if(m_LoadScreens[i] != null) 
+            if (loadScreens[i] != null)
             {
-                if(i != m_RandomIndex) 
-                {
-                    m_LoadScreens[i].SetActive(false);
-                }
-                else 
-                {
-                    m_LoadScreens[i].SetActive(true);
-                }
+                loadScreens[i].SetActive(i == randomIndex);
             }
         }
     }
 
-    private void Loading() 
+    private void UpdatePercentageText(float fillAmount)
     {
-        if(m_FillImages[m_RandomIndex] != null) 
-        {
-            m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_targetFill, Time.deltaTime * m_FillSpeed);
-                
-            UpdatePercentageText(m_FillImages[m_RandomIndex]);
-        }
+        fillImages[randomIndex].fillAmount = fillAmount;
+        int percent = Mathf.RoundToInt(fillAmount * 100);
+        percentageText.text = percent + "%";
     }
 
-    private void UpdatePercentageText(Image image)
+    private void OnDestroy()
     {
-        image.fillAmount = m_CurrentFill;
-        int percent = Mathf.RoundToInt(m_CurrentFill * 100);
-        if(m_Percentage != null) 
-        {
-            m_Percentage.text = percent + "%";
-        }
+        LevelManager.Instance.OnLoadingProgress -= UpdateLoadingUI;
     }
-
 }

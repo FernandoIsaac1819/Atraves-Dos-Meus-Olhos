@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the UI elements and transitions for the game, including the start menu.
+/// </summary>
 public class UIManager : MonoBehaviour
 {
+    // Singleton instance for the UIManager.
     public static UIManager Instance {get; private set;}
 
     private EventHandler OnGameStarted;
@@ -17,46 +22,36 @@ public class UIManager : MonoBehaviour
     [Header("UI Panels")]
     [SerializeField] private GameObject m_StartMenuPanel;
 
-    //private float m_ExitStartMenuTime = 6;
-    private bool m_InStartMenu;
-
-    //GETTERS AND SETTERS
-    public bool InStartMenu {get {return m_InStartMenu;} set {m_InStartMenu = value;}}
-
     void Awake() 
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // This ensures that the instance isn't destroyed when loading a new scene.
+            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
-            Destroy(gameObject); // Ensures that there's only one instance of the script in the scene.
+            Destroy(gameObject); 
         }
 
         LoadStartMenu();
+
     }
 
+    /// <summary>
+    /// Loads and displays the start menu.
+    /// </summary>
     private void LoadStartMenu()
     {
-        m_InStartMenu = true;
         m_StartMenuPanel.SetActive(true);
         m_StartMenuPanelAnimator.SetBool("StartOn", true);
     }
 
+    /// <summary>
+    /// Initiates the game start process, hiding the start menu.
+    /// </summary>
     public void StartGame() 
     {
-        m_InStartMenu = false;
         m_StartMenuPanelAnimator.SetBool("StartOn", false);
-        //check when the animation is done to turn it off instead of using a coroutine
-        //StartCoroutine(DeactivateStartCanvas(m_ExitStartMenuTime));
     }
-
-    IEnumerator DeactivateStartCanvas (float time) 
-    {
-        yield return new WaitForSeconds(time);
-        m_StartMenuPanel.SetActive(false);
-    }
-    
 }

@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This controls animations relative to the player
+/// </summary>
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator m_Animator;
@@ -10,7 +12,6 @@ public class PlayerAnimation : MonoBehaviour
     private Transformation m_Transformation;
     [SerializeField] private Avatar m_CatAvatar;
     [SerializeField] private Avatar m_HumanAvatar;
-    public bool m_UseRootMotion;
 
     //ANIMATOR HASH CODES
     readonly int m_ForwardHash = Animator.StringToHash("Forward");
@@ -20,6 +21,7 @@ public class PlayerAnimation : MonoBehaviour
     readonly int m_IsHumanHash = Animator.StringToHash("IsHuman");
     readonly int m_IsRunningHash = Animator.StringToHash("IsRunning");
     readonly int m_IsMovingHash = Animator.StringToHash("IsMoving");
+    
 
     void Start()
     {
@@ -34,6 +36,9 @@ public class PlayerAnimation : MonoBehaviour
         SwitchAvatars();
     }
 
+    /// <summary>
+    /// Handles the animation of the player
+    /// </summary>
     void HandleAnimations() 
     {
         m_Animator.applyRootMotion = true; 
@@ -52,6 +57,9 @@ public class PlayerAnimation : MonoBehaviour
         m_Animator.SetFloat(m_ForwardHash , m_PlayerMovement.ForwardAmount * m_PlayerMovement.MovementSpeed, 0.1f, Time.deltaTime);
     }
 
+    /// <summary>
+    /// Switches the avatar of the animator component depending on the current form of the character
+    /// </summary>
     void SwitchAvatars() 
     {
         if(m_Transformation.IsHuman) 

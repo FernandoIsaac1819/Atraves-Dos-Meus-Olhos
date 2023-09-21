@@ -4,23 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Manages the scaling of a button when it's selected or deselected.
+/// </summary>
 [RequireComponent(typeof(Button))]
 public class ButtonSelection : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    //Gets the button component and it controls what it does when it is selected
     [Header("Settings")]
-
     [Tooltip("Scale of the button when it's selected.")]
     [SerializeField] private Vector3 selectedScale = new Vector3(1.1f, 1.1f, 1.1f);
-
     [Tooltip("Speed at which the button scales to its target size.")]
     [SerializeField] private float scaleSpeed = 10f;
-
 
     private Vector3 originalScale;
     private Vector3 targetScale;
     private Button button;
 
+    /// <summary>
+    /// Initializes the button and sets the original scale.
+    /// </summary>
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -28,9 +30,11 @@ public class ButtonSelection : MonoBehaviour, ISelectHandler, IDeselectHandler
         targetScale = originalScale;
     }
     
+    /// <summary>
+    /// Smoothly scales the button towards the target scale.
+    /// </summary>
     private void Update()
     {
-        // Smoothly scale the button towards the target scale
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
     }
 

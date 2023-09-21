@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script control the emote functionality. 
+/// </summary>
 public class Emote : MonoBehaviour
 {
-    //THIS SCRIPT CONTROLS THE EMOTES OF THE CHARACTER 
+
     private Animator m_Animator;
     private List<int> m_DanceHashCodes = new List<int>();
     private int m_CurrentDanceIndex = 0;
@@ -27,16 +30,19 @@ public class Emote : MonoBehaviour
         {
             PlayNextDance();
         }
-
+        /*
         if(HandleInputs.Instance.IsMoving()) 
         {
             for(int i = 0; i < m_DanceHashCodes.Count; i++) 
             {
                 
             }
-        }
+        }*/
     }
 
+    /// <summary>
+    /// Triggers the dance animations animations. Plays the next animation with every click and resets the trigger of the previous animation.
+    /// </summary>
     public void PlayNextDance()
     {
         foreach (int danceHash in m_DanceHashCodes)
@@ -52,6 +58,10 @@ public class Emote : MonoBehaviour
         StartCoroutine(ResetCanChange());
     }
 
+    /// <summary>
+    /// Resets the bool allowing the player to start dancing
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ResetCanChange () 
     {
         m_CanChange = false;

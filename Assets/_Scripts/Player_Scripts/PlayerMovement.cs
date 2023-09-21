@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-
+/// <summary>
+/// Everything related to player movement
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     //COMPONENTS
@@ -87,6 +89,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the jump functionality using rigidbody
+    /// </summary>
     void Jump() 
     {
         if(!m_JumpReset) {return;}
@@ -98,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(ResetCanJump(m_JumpCoolDown));
     }
 
+    /// <summary>
+    /// Resets the the ability to jump 
+    /// </summary>
+    /// <param name="jumpCoolDown">Decides the amount of time before jump is allowed</param>
+    /// <returns></returns>
     private IEnumerator ResetCanJump(float jumpCoolDown) 
 	{
         m_JumpReset = false;
@@ -105,11 +115,18 @@ public class PlayerMovement : MonoBehaviour
 		m_JumpReset = true;
 	}
 
+    /// <summary>
+    /// Simply checks of the player is moving by checking the magnitude of the move direction
+    /// </summary>
+    /// <returns></returns>
     public bool IsMoving() 
     {
         return m_MoveDirection.magnitude > 0;
     }
 
+    /// <summary>
+    /// Handles the locomotion of the player
+    /// </summary>
     void HandlePlayerLocomotion() 
     {
         m_MoveDirection = HandleInputs.Instance.GetMovementDirection();
@@ -130,6 +147,9 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement );
     }
 
+    /// <summary>
+    /// Checks the grounded state of the player
+    /// </summary>
     void CheckGroundedStatus()
     {
         RaycastHit hitInfo;
@@ -148,6 +168,9 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Changes the movement parameters depending on the transformation state
+    /// </summary>
     void UpdateMovementParameters() 
     {
         if(m_Transformation.IsHuman) 
@@ -174,6 +197,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies extra movement while the player is midair
+    /// </summary>
     void ApplyExtraAirMovement() 
     {
         Vector3 AirMovementDirection = HandleInputs.Instance.GetMovementDirection();
@@ -187,6 +213,9 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.AddForce(ExtraAirMovement, ForceMode.VelocityChange);
     }
 
+    /// <summary>
+    /// Adds extra rotation to the turn
+    /// </summary>
     void ApplyExtraTurnRotation()
 	{
 		// help the character turn faster (this is in addition to root rotation in the animation)
@@ -194,6 +223,9 @@ public class PlayerMovement : MonoBehaviour
 		transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
 	}
 
+    /// <summary>
+    /// Controls the XAxis of the cinemachine 
+    /// </summary>
     void HandleCamera() 
     {
         Vector2 camInput = HandleInputs.Instance.GetCameraInput();
