@@ -5,15 +5,12 @@ using UnityEngine;
 /// <summary>
 /// Everything related to player movement
 /// </summary>
+
 public class PlayerMovement : MonoBehaviour
 {
-    //COMPONENTS
+
     private Rigidbody m_Rigidbody;
     private Transformation m_Transformation;
-
-    [Header("Camera")]
-    [SerializeField] private CinemachineFreeLook m_PlayerCamera;
-    [SerializeField] private float m_XCameraSensitivity;
 
     [Header("Movement")]
     [SerializeField] private float m_CatWalkingSpeed;
@@ -57,13 +54,11 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Transformation = GetComponentInParent<Transformation>();
         m_Rigidbody = GetComponent<Rigidbody>();
-
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void Update()
     {
-        HandleCamera();
         CheckGroundedStatus();
         UpdateMovementParameters();
 
@@ -226,11 +221,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Controls the XAxis of the cinemachine 
     /// </summary>
-    void HandleCamera() 
-    {
-        Vector2 camInput = HandleInputs.Instance.GetCameraInput();
-        m_PlayerCamera.m_XAxis.Value += camInput.x * m_XCameraSensitivity;
-    }
+    
     /*
     void WalkUpStairs() 
     {
