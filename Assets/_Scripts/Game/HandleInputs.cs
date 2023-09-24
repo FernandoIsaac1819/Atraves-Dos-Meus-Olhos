@@ -21,6 +21,7 @@ public class HandleInputs : MonoBehaviour
     private Vector3 m_CurrentCamInput;
     private Vector3 m_TargetCamInput;
 
+
     void Awake()
     {
         AssignCameraTransform();
@@ -35,7 +36,6 @@ public class HandleInputs : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Set up input system    
         m_GameInputActions = new GameInputActions();
         m_GameInputActions.Player.Enable();
 
@@ -46,20 +46,16 @@ public class HandleInputs : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        //m_GameInputActions.Player.Disable();
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        AssignCameraTransform();
-    }
 
-    private void AssignCameraTransform()
+    public bool IsInteractPressed()
     {
-        m_Cam = Camera.main?.transform;
+        return m_GameInputActions.Player.Interact.IsPressed();
     }
 
     public bool IsEmotePressed()
@@ -67,20 +63,24 @@ public class HandleInputs : MonoBehaviour
         return m_GameInputActions.Player.Emote.IsPressed();
     }
 
+
     public bool IsJumpPressed()
     {
         return m_GameInputActions.Player.Jump.IsPressed();
     }
+
 
     public bool IsTransformedPressed()
     {
         return m_GameInputActions.Player.Transform.IsPressed();
     }
 
+
     public bool IsRunPressed()
     {
         return m_GameInputActions.Player.Run.IsPressed();
     }
+
 
     public Vector2 GetCameraInput()
     {
@@ -88,11 +88,13 @@ public class HandleInputs : MonoBehaviour
         return m_CurrentCamInput;
     }
 
+
     public bool IsMoving()
     {
         Vector3 moveDir = GetMovementDirection();
         return moveDir.magnitude > 0;
     }
+
 
     public Vector3 GetMovementDirection()
     {
@@ -116,4 +118,17 @@ public class HandleInputs : MonoBehaviour
 
         return m_MovementDirection;
     }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AssignCameraTransform();
+    }
+
+
+    private void AssignCameraTransform()
+    {
+        m_Cam = Camera.main?.transform;
+    }
+
 }

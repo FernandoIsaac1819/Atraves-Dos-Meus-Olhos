@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class LoadScreen : MonoBehaviour
 {
-    public static LoadScreen instance;
-    [SerializeField] private CanvasGroup m_LoadScreensCanvas;
+    public static LoadScreen instance {get; private set;}
+
+    [SerializeField] private GameObject m_MainLoadScreen;
     [SerializeField] private Animator m_Animator;
     [SerializeField] private GameObject [] m_LoadScreens;
     [SerializeField] private Image [] m_FillImages;
@@ -18,6 +19,9 @@ public class LoadScreen : MonoBehaviour
     private float m_TargetFill = 1;
     private float m_CurrentFill = 0;
     private bool m_CanLoad;
+
+    private bool m_FinishedLoading = false;
+    public bool FinishedLoading {get{return m_FinishedLoading;} set {m_FinishedLoading = value;}}
 
 
     void Awake() 
@@ -36,9 +40,9 @@ public class LoadScreen : MonoBehaviour
 
     void Start()
     {
-        m_LoadScreensCanvas.alpha = 0;
-
         m_Animator = GetComponent<Animator>();
+
+        m_MainLoadScreen.SetActive(false);
 
         for(int i = 0; i < m_LoadScreens.Length; i++) 
         {
@@ -79,9 +83,9 @@ public class LoadScreen : MonoBehaviour
 
             if (asyncOperation.progress >= 0.9f && Mathf.Approximately(m_FillImages[m_CurrentScreenIndex].fillAmount, 1f))
             {
-                m_Animator.SetTrigger("FadeOut");
-            
                 asyncOperation.allowSceneActivation = true;
+                yield return new WaitForSeconds(0.4f);
+                m_Animator.SetTrigger("FadeOut");
             }
 
             yield return null;
@@ -91,6 +95,7 @@ public class LoadScreen : MonoBehaviour
 
     private void SetLoadScreen() 
     {
+        m_MainLoadScreen.SetActive(true);
         m_Animator.SetTrigger("FadeIn");
 
         ResetLoadScreen();
@@ -123,13 +128,10 @@ public class LoadScreen : MonoBehaviour
         m_CanLoad = true;
     }
 
-    /// <summary>
-    /// Resets the values of the load screen. Fill is reset, Visibility and the CanLoad bool
-    /// </summary>
+
     void ResetLoadScreen() 
     {
         m_CanLoad = false;
-        m_LoadScreensCanvas.alpha = 1;
         m_CurrentFill = 0;
     }
 

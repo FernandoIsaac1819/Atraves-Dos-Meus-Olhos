@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public static PlayerMovement instance {get;private set;}
     private Rigidbody m_Rigidbody;
     private Transformation m_Transformation;
 
@@ -49,6 +49,19 @@ public class PlayerMovement : MonoBehaviour
     public float JumpPower {get{return m_JumpPower;} set {m_JumpPower = value;}}
     public float ForwardAmount {get{return m_ForwardAmount;} set {m_ForwardAmount = value;}}
     public float MovementSpeed {get{return m_MovementSpeed;} set {m_MovementSpeed = value;}}
+
+    void Awake() 
+    {
+        if(instance == null) 
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } 
+        else if(instance != this) 
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

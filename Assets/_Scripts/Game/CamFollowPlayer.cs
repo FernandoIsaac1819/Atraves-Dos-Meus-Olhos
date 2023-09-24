@@ -8,17 +8,9 @@ using UnityEngine;
 /// </summary>
 public class CamFollowPlayer : MonoBehaviour
 {
-    /// <summary>
-    /// The target to be followed
-    /// </summary>
-    public Transform m_Target;
-    /// <summary>
-    /// controls the speed of the follow 
-    /// </summary>
+
     public float m_SmoothTime;
-    /// <summary>
-    /// the space between the target and the camera
-    /// </summary>
+
     public Vector3 m_Offset;
     private Vector3 m_Velocity = Vector3.zero;
 
@@ -27,14 +19,12 @@ public class CamFollowPlayer : MonoBehaviour
         FollowPlayer();
     }
 
-    /// <summary>
-    /// This simply smoothly follows the target with an offset
-    /// </summary>
+
     private void FollowPlayer() 
     {
-        if (m_Target == null) return;
+        if (PlayerMovement.instance == null) return;
 
-        Vector3 desiredPosition = m_Target.position + m_Offset;
+        Vector3 desiredPosition = PlayerMovement.instance.transform.position + m_Offset;
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref m_Velocity, m_SmoothTime);
         transform.position = smoothedPosition;
     }

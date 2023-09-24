@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "9cda7cc6-dfae-48d5-9ee6-b19d75909e70",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -85,7 +94,7 @@
                 },
                 {
                     "name": "WASD",
-                    "id": "28e697ec-3a91-449b-b712-bfd51faa5b4c",
+                    "id": "442055bd-95dd-4894-a979-aadd83ef3c4c",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -93,6 +102,50 @@
                     "action": "Movement",
                     "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "f0608b33-2d62-4fd8-a7fb-1d6ee871c3cc",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "c1a8aa1a-34a4-4f47-98bd-2930844c1113",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d7d68a91-0853-43e0-89da-bfdee1728084",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "aa345192-8fec-4061-93ee-48d293c829e1",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "Arrow Keys",
@@ -234,6 +287,28 @@
                     "processors": "",
                     "groups": "PS5",
                     "action": "Emote ",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cffe1d4-e353-4dd1-8d14-f0b0079f08dc",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS5",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "623bf548-56fe-42cd-909b-efc97aef8441",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
