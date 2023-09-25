@@ -1,20 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class randomA : MonoBehaviour, IInteractable
 {
-    public bool m_IsInteracted = false;
-    public bool IsInteracted => m_IsInteracted;
+    
+    [SerializeField] private string m_InteractionText;
+    private bool m_IsInteracting = false;
+    public bool IsInteracted => m_IsInteracting;
+
 
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Interact with random");
     }
 
     public void ShowIcon()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("show icon for random");
     }
 
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public string GetInteractionText()
+    {
+        return m_InteractionText;
+    }
 }

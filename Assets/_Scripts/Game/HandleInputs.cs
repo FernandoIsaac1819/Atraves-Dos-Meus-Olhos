@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class HandleInputs : MonoBehaviour
@@ -21,6 +22,9 @@ public class HandleInputs : MonoBehaviour
     private Vector3 m_CurrentCamInput;
     private Vector3 m_TargetCamInput;
 
+    public EventHandler OnInteractPressed;
+    public EventHandler OnInteractReleased;
+
 
     void Awake()
     {
@@ -39,24 +43,21 @@ public class HandleInputs : MonoBehaviour
         m_GameInputActions = new GameInputActions();
         m_GameInputActions.Player.Enable();
 
+        m_GameInputActions.Player.Interact.performed += OnInteract_Performed;
+        m_GameInputActions.Player.Interact.canceled += OnInteract_Canceled;
+
     }
 
-    private void OnEnable()
+    private void OnInteract_Canceled(InputAction.CallbackContext context)
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        OnInteractReleased?.Invoke(this, EventArgs.Empty);
     }
 
-
-    private void OnDisable()
+    private void OnInteract_Performed(InputAction.CallbackContext context)
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        OnInteractPressed?.Invoke(this, EventArgs.Empty);
     }
 
-
-    public bool IsInteractPressed()
-    {
-        return m_GameInputActions.Player.Interact.IsPressed();
-    }
 
     public bool IsEmotePressed()
     {
@@ -129,6 +130,17 @@ public class HandleInputs : MonoBehaviour
     private void AssignCameraTransform()
     {
         m_Cam = Camera.main?.transform;
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 }

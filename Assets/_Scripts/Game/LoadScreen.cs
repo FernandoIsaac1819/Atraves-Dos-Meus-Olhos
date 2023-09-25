@@ -9,11 +9,11 @@ public class LoadScreen : MonoBehaviour
     public static LoadScreen instance {get; private set;}
 
     [SerializeField] private GameObject m_MainLoadScreen;
-    [SerializeField] private Animator m_Animator;
     [SerializeField] private GameObject [] m_LoadScreens;
     [SerializeField] private Image [] m_FillImages;
     [SerializeField] private TextMeshProUGUI m_Percentage;
     [SerializeField] private float m_FillSpeed;
+    private Animator m_Animator;
 
     private int m_CurrentScreenIndex;
     private float m_TargetFill = 1;
@@ -40,9 +40,9 @@ public class LoadScreen : MonoBehaviour
 
     void Start()
     {
-        m_Animator = GetComponent<Animator>();
-
         m_MainLoadScreen.SetActive(false);
+        
+        m_Animator = GetComponent<Animator>();
 
         for(int i = 0; i < m_LoadScreens.Length; i++) 
         {
@@ -53,16 +53,16 @@ public class LoadScreen : MonoBehaviour
 
     void Update()
     {
-        if(m_CanLoad) 
-        {
-            if(m_LoadScreens[m_CurrentScreenIndex].activeSelf) 
-            {
-                m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, Time.deltaTime * m_FillSpeed);
 
-                UpdatePercentageText(m_LoadScreens[m_CurrentScreenIndex].transform.Find("Fill").GetComponent<Image>());
-            }
+        if(m_LoadScreens[m_CurrentScreenIndex].activeSelf) 
+        {
+            m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, Time.deltaTime * m_FillSpeed);
+
+            UpdatePercentageText(m_LoadScreens[m_CurrentScreenIndex].transform.Find("Fill").GetComponent<Image>());
         }
+        
     }
+
 
     public void LoadScene( string sceneName) 
     {
@@ -96,9 +96,10 @@ public class LoadScreen : MonoBehaviour
     private void SetLoadScreen() 
     {
         m_MainLoadScreen.SetActive(true);
+
         m_Animator.SetTrigger("FadeIn");
 
-        ResetLoadScreen();
+        m_CurrentFill = 0;
 
         m_CurrentScreenIndex += 1;
         m_CurrentScreenIndex = m_CurrentScreenIndex % m_LoadScreens.Length;
@@ -121,18 +122,6 @@ public class LoadScreen : MonoBehaviour
         {
             m_Percentage.text = percent + "%";
         }
-    }
-
-    private void CanLoadScene() 
-    {
-        m_CanLoad = true;
-    }
-
-
-    void ResetLoadScreen() 
-    {
-        m_CanLoad = false;
-        m_CurrentFill = 0;
     }
 
 }

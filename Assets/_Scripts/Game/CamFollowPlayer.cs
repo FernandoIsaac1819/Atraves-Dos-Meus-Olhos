@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using DissolveExample;
 using UnityEngine;
+using Cinemachine;
 
-/// <summary>
-/// Target for the cinemachine player camera to follow 
-/// </summary>
+
 public class CamFollowPlayer : MonoBehaviour
 {
-
-    public float m_SmoothTime;
+    [SerializeField] float m_SmoothTime;
 
     public Vector3 m_Offset;
     private Vector3 m_Velocity = Vector3.zero;
@@ -17,8 +14,8 @@ public class CamFollowPlayer : MonoBehaviour
     private void FixedUpdate()
     {
         FollowPlayer();
-    }
 
+    }
 
     private void FollowPlayer() 
     {

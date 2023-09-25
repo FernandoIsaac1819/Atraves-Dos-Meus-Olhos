@@ -4,7 +4,9 @@ using UnityEngine;
 
 public interface IInteractable
 {
+    string GetInteractionText();
     bool IsInteracted { get; }
-    public void ShowIcon();
-    public void Interact();
+    //string InteractionText { get; }
+    void Interact();
+    Transform GetTransform();
 }
