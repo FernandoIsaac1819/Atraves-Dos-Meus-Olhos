@@ -292,6 +292,17 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ae308912-bf8b-4cfa-9479-e86c43b557ba"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keybroad"",
+                    ""action"": ""Camera Controller"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""aed2f2e9-4aec-4745-bff2-0ccf5688faa7"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",

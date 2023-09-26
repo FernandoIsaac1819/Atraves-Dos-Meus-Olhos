@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_HumanAirControl;
     [SerializeField] private float m_JumpCoolDown;
     private float m_JumpPower;
+    private bool m_Jump;
     
     //GETTERS AND SETTERS
     public Rigidbody Rigidbody {get {return m_Rigidbody;} set {m_Rigidbody = value;}}
@@ -68,6 +70,19 @@ public class PlayerMovement : MonoBehaviour
         m_Transformation = GetComponentInParent<Transformation>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+        HandleInputs.Instance.OnJumpPressed += OnJump_Pressed;
+        HandleInputs.Instance.OnJumpReleased += OnJump_Released;
+    }
+
+    private void OnJump_Released(object sender, EventArgs e)
+    {
+        m_Jump = false;
+    }
+
+    private void OnJump_Pressed(object sender, EventArgs e)
+    {
+        m_Jump = true;
     }
 
     void Update()
@@ -88,12 +103,14 @@ public class PlayerMovement : MonoBehaviour
                 m_TurnAmount = 0;
             }
 
-            if(HandleInputs.Instance.IsJumpPressed() && m_JumpReset) Jump(); 
+            if(m_Jump && m_JumpReset) 
+            {
+                Jump();
+            } 
         }    
         else 
         {
             ApplyExtraAirMovement();
-            m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
         }
     }
 
@@ -210,6 +227,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void ApplyExtraAirMovement() 
     {
+        m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+
         Vector3 AirMovementDirection = HandleInputs.Instance.GetMovementDirection();
         
         AirMovementDirection.Normalize();

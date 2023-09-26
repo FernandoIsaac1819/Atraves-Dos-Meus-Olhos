@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 /// <summary>
 /// The transformation mechanic of the player
 /// </summary>
 public class Transformation : MonoBehaviour
 {
+    public static Transformation Instance;
+
     [SerializeField] private Animator m_TransformationAnimator;
 
     [Header("Forms")]
@@ -21,9 +24,24 @@ public class Transformation : MonoBehaviour
     [SerializeField] private bool m_CanTransform = true;
     [SerializeField] private float m_TransformationCoolDown;
     [SerializeField] private float m_SwitchFormTimer;
+
+    private bool m_Transform = false;
     public bool IsHuman {get{return m_IsHuman;} set {m_IsHuman = value;}}
     public bool CanTransform {get{return m_CanTransform;} set {m_CanTransform = value;}}
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start() 
     {
         m_CatForm.SetActive(false);
@@ -31,6 +49,7 @@ public class Transformation : MonoBehaviour
 
         m_HumanCollider.enabled = true;
         m_CatCollider.enabled = false;
+
     }
 
     void Update() 

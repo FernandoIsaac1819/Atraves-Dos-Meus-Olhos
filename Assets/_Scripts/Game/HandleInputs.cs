@@ -24,7 +24,12 @@ public class HandleInputs : MonoBehaviour
 
     public EventHandler OnInteractPressed;
     public EventHandler OnInteractReleased;
-
+    public EventHandler OnEmotePressed;
+    public EventHandler OnEmoteReleased;
+    public EventHandler OnJumpPressed;
+    public EventHandler OnJumpReleased;
+    public EventHandler OnTransformStarted;
+    public EventHandler OnTransformReleased;
 
     void Awake()
     {
@@ -46,6 +51,45 @@ public class HandleInputs : MonoBehaviour
         m_GameInputActions.Player.Interact.performed += OnInteract_Performed;
         m_GameInputActions.Player.Interact.canceled += OnInteract_Canceled;
 
+        m_GameInputActions.Player.Emote.performed += OnEmote_Performed;
+        m_GameInputActions.Player.Emote.canceled += OnEmote_Canceled;
+
+        m_GameInputActions.Player.Jump.performed += OnJump_Performed;
+        m_GameInputActions.Player.Jump.canceled += OnJump_Canceled;
+
+        m_GameInputActions.Player.Transform.started += OnTransform_Started;
+        m_GameInputActions.Player.Transform.performed += OnTransform_Performed;
+
+    }
+
+    private void OnTransform_Performed(InputAction.CallbackContext context)
+    {
+        OnTransformReleased?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnTransform_Started(InputAction.CallbackContext context)
+    {
+        OnTransformStarted?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnJump_Canceled(InputAction.CallbackContext context)
+    {
+        OnJumpReleased?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnJump_Performed(InputAction.CallbackContext context)
+    {
+        OnJumpPressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnEmote_Canceled(InputAction.CallbackContext context)
+    {
+        OnEmoteReleased?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnEmote_Performed(InputAction.CallbackContext context)
+    {
+        OnEmotePressed?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnInteract_Canceled(InputAction.CallbackContext context)
@@ -58,37 +102,21 @@ public class HandleInputs : MonoBehaviour
         OnInteractPressed?.Invoke(this, EventArgs.Empty);
     }
 
-
-    public bool IsEmotePressed()
-    {
-        return m_GameInputActions.Player.Emote.IsPressed();
-    }
-
-
-    public bool IsJumpPressed()
-    {
-        return m_GameInputActions.Player.Jump.IsPressed();
-    }
-
-
     public bool IsTransformedPressed()
     {
         return m_GameInputActions.Player.Transform.IsPressed();
     }
-
 
     public bool IsRunPressed()
     {
         return m_GameInputActions.Player.Run.IsPressed();
     }
 
-
     public Vector2 GetCameraInput()
     {
         m_CurrentCamInput = m_GameInputActions.Player.CameraController.ReadValue<Vector2>();
         return m_CurrentCamInput;
     }
-
 
     public bool IsMoving()
     {

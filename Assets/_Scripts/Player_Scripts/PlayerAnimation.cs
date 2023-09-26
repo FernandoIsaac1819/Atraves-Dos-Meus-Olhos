@@ -10,6 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator m_Animator;
     private PlayerMovement m_PlayerMovement;
     private Transformation m_Transformation;
+    
     [SerializeField] private Avatar m_CatAvatar;
     [SerializeField] private Avatar m_HumanAvatar;
 
@@ -50,7 +51,7 @@ public class PlayerAnimation : MonoBehaviour
 
         m_Animator.SetBool(m_IsMovingHash, HandleInputs.Instance.IsMoving());
         m_Animator.SetBool(m_IsRunningHash, HandleInputs.Instance.IsRunPressed());
-        m_Animator.SetBool(m_IsHumanHash, m_Transformation.IsHuman);
+        m_Animator.SetBool(m_IsHumanHash, Transformation.Instance.IsHuman);
         m_Animator.SetBool(m_GroundedHash, m_PlayerMovement.IsGrounded);
 
         m_Animator.SetFloat(m_TurnHashHash, m_PlayerMovement.TurnAmount, 0.1f, Time.deltaTime);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class Emote : MonoBehaviour
     private List<int> m_DanceHashCodes = new List<int>();
     private int m_CurrentDanceIndex = 0;
     private bool m_CanChange = true;
+    private bool m_IsEmoting = false;
 
     void Start() 
     {
@@ -22,27 +24,30 @@ public class Emote : MonoBehaviour
         m_DanceHashCodes.Add(Animator.StringToHash("Dance2"));
         m_DanceHashCodes.Add(Animator.StringToHash("Dance3"));
         m_DanceHashCodes.Add(Animator.StringToHash("Dance4"));
+
+        HandleInputs.Instance.OnEmotePressed += OnEmote_Pressed;
+        HandleInputs.Instance.OnEmoteReleased += OnEmote_Released;
+    }
+
+    private void OnEmote_Pressed(object sender, EventArgs e)
+    {
+        m_IsEmoting = true;
+    }
+
+    private void OnEmote_Released(object sender, EventArgs e)
+    {
+        m_IsEmoting = false;
     }
 
     void Update() 
     {
-        if(HandleInputs.Instance.IsEmotePressed() && m_CanChange) 
+        if(m_IsEmoting && m_CanChange) 
         {
             PlayNextDance();
         }
-        /*
-        if(HandleInputs.Instance.IsMoving()) 
-        {
-            for(int i = 0; i < m_DanceHashCodes.Count; i++) 
-            {
-                
-            }
-        }*/
     }
 
-    /// <summary>
-    /// Triggers the dance animations animations. Plays the next animation with every click and resets the trigger of the previous animation.
-    /// </summary>
+
     public void PlayNextDance()
     {
         foreach (int danceHash in m_DanceHashCodes)
@@ -52,16 +57,12 @@ public class Emote : MonoBehaviour
 
         m_Animator.SetTrigger(m_DanceHashCodes[m_CurrentDanceIndex]);
 
-        // Increment the counter and wrap it around if it exceeds the list count
         m_CurrentDanceIndex = (m_CurrentDanceIndex + 1) % m_DanceHashCodes.Count;
 
         StartCoroutine(ResetCanChange());
     }
 
-    /// <summary>
-    /// Resets the bool allowing the player to start dancing
-    /// </summary>
-    /// <returns></returns>
+
     IEnumerator ResetCanChange () 
     {
         m_CanChange = false;
