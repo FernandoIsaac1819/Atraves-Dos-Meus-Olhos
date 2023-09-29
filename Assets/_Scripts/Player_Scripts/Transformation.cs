@@ -50,11 +50,24 @@ public class Transformation : MonoBehaviour
         m_HumanCollider.enabled = true;
         m_CatCollider.enabled = false;
 
+        HandleInputs.Instance.OnTransformPressed += OnTransform_Pressed;
+        HandleInputs.Instance.OnTransformReleased += OnTransform_Released;
+
+    }
+
+    private void OnTransform_Released(object sender, EventArgs e)
+    {
+        m_Transform = false;
+    }
+
+    private void OnTransform_Pressed(object sender, EventArgs e)
+    {
+        m_Transform = true;
     }
 
     void Update() 
     {
-        if(HandleInputs.Instance.IsTransformedPressed() && m_CanTransform) 
+        if(m_Transform /*HandleInputs.Instance.IsTransformedPressed()*/ && m_CanTransform) 
         {
             StartCoroutine(SwitchForms(m_SwitchFormTimer));
             StartCoroutine(TransformationCoolDown(m_TransformationCoolDown)); 
@@ -71,16 +84,20 @@ public class Transformation : MonoBehaviour
         if(m_IsHuman) 
         {
             m_TransformationAnimator.SetTrigger("Cat");
+
             m_CatCollider.enabled = true;
             m_HumanCollider.enabled = false;
+
             yield return new  WaitForSeconds(time);
             m_IsHuman = false;
         } 
         else
         {
             m_TransformationAnimator.SetTrigger("Human");
+
             m_HumanCollider.enabled = true;
             m_CatCollider.enabled = false;
+
             yield return new  WaitForSeconds(time);
             m_IsHuman = true;
         }

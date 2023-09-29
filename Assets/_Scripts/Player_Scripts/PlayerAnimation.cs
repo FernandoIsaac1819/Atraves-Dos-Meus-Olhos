@@ -50,12 +50,12 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         m_Animator.SetBool(m_IsMovingHash, HandleInputs.Instance.IsMoving());
-        m_Animator.SetBool(m_IsRunningHash, HandleInputs.Instance.IsRunPressed());
+        m_Animator.SetBool(m_IsRunningHash, PlayerMovement.Instance.IsRunning);
         m_Animator.SetBool(m_IsHumanHash, Transformation.Instance.IsHuman);
-        m_Animator.SetBool(m_GroundedHash, m_PlayerMovement.IsGrounded);
+        m_Animator.SetBool(m_GroundedHash, PlayerMovement.Instance.IsGrounded);
 
-        m_Animator.SetFloat(m_TurnHashHash, m_PlayerMovement.TurnAmount, 0.1f, Time.deltaTime);
-        m_Animator.SetFloat(m_ForwardHash , m_PlayerMovement.ForwardAmount * m_PlayerMovement.MovementSpeed, 0.1f, Time.deltaTime);
+        m_Animator.SetFloat(m_TurnHashHash, PlayerMovement.Instance.TurnAmount * PlayerMovement.Instance.MovementSpeed, 0.1f, Time.deltaTime);
+        m_Animator.SetFloat(m_ForwardHash , PlayerMovement.Instance.ForwardAmount * PlayerMovement.Instance.MovementSpeed, 0.1f, Time.deltaTime);
     }
 
     /// <summary>

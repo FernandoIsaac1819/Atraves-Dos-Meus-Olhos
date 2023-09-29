@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SceneEntrance : MonoBehaviour
 {
-    [SerializeField] private string m_EntranceIdentifier; 
+    [SerializeField] private SceneField m_EntranceIdentifier; 
 
     void Start()
     {
@@ -10,8 +10,8 @@ public class SceneEntrance : MonoBehaviour
 
         if (lastExit == m_EntranceIdentifier)
         {
-            PlayerMovement.instance.transform.position = transform.position;
-            PlayerMovement.instance.transform.eulerAngles = transform.eulerAngles;
+            PlayerMovement.Instance.transform.position = transform.position;
+            PlayerMovement.Instance.transform.eulerAngles = transform.eulerAngles;
         }
     }
 }

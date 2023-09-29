@@ -19,9 +19,9 @@ public class CamFollowPlayer : MonoBehaviour
 
     private void FollowPlayer() 
     {
-        if (PlayerMovement.instance == null) return;
+        if (PlayerMovement.Instance == null) return;
 
-        Vector3 desiredPosition = PlayerMovement.instance.transform.position + m_Offset;
+        Vector3 desiredPosition = PlayerMovement.Instance.transform.position + m_Offset;
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref m_Velocity, m_SmoothTime);
         transform.position = smoothedPosition;
     }

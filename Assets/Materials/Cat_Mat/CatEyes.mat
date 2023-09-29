@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Cat_L_Black
+  m_Name: CatEyes
   m_Shader: {fileID: -6465566751694194690, guid: a3a9f0aacada2864da164d4ffa099c23,
     type: 3}
   m_Parent: {fileID: 0}
@@ -148,25 +148,25 @@ Material:
     m_Floats:
     - Boolean_2781CA78: 1
     - Boolean_4C0CF7D3: 1
-    - Boolean_523A0F5F: 1
+    - Boolean_523A0F5F: 0
     - Boolean_66D76BED: 1
     - Boolean_7CD2C539: 1
     - Boolean_B1E7E1C2: 1
     - Boolean_C792849A: 0
     - Boolean_E0857713: 1
-    - Boolean_FC9E3EC0: 1
+    - Boolean_FC9E3EC0: 0
     - Vector1_851457A2: 0.2
     - Vector1_97D74760: 1
-    - Vector1_CAF4B7A: 1.5
+    - Vector1_CAF4B7A: 6.41
     - Vector1_EE791F2B: 0
     - Vector1_F0325914: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_13ACA631: {r: 0.7882353, g: 0.7882353, b: 0.7882353, a: 0}
+    - Color_13ACA631: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 0}
     - Color_18ADC7B9: {r: 0.5137254, g: 0.4470588, b: 0.40392157, a: 0}
-    - Color_1EB05C51: {r: 0.4509804, g: 0.30588236, b: 0.36078432, a: 0}
-    - Color_229D9C7C: {r: 0.19215687, g: 0.19215687, b: 0.19215687, a: 0}
+    - Color_1EB05C51: {r: 0.5254902, g: 0.2784314, b: 0.32156864, a: 0}
+    - Color_229D9C7C: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 0}
     - Color_2D9384E7: {r: 0, g: 0, b: 0, a: 0}
     - Color_304ED175: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 0}
     - Color_32956E0B: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 0}
@@ -175,13 +175,13 @@ Material:
     - Color_6BAB0765: {r: 0.7450981, g: 0.35686278, b: 0.40392157, a: 0}
     - Color_85313AED: {r: 0.98039216, g: 0.9137255, b: 0.737255, a: 0}
     - Color_92653150: {r: 0, g: 0, b: 0, a: 0}
-    - Color_A19B2226: {r: 0.15294118, g: 0.07450981, b: 0.015686275, a: 0}
+    - Color_A19B2226: {r: 0, g: 0, b: 0, a: 0}
     - Color_A38F6A3D: {r: 0.30588236, g: 0.30588236, b: 0.30588236, a: 0}
     - Color_B29D9E15: {r: 0, g: 0, b: 0, a: 0}
     - Color_B4447790: {r: 0, g: 0, b: 0, a: 0}
-    - Color_BD5AAB2F: {r: 0.9019608, g: 0.54901963, b: 0.23921569, a: 0}
+    - Color_BD5AAB2F: {r: 0.55043393, g: 1, b: 0.45660377, a: 0}
     - Color_BD909386: {r: 0, g: 0, b: 0, a: 0}
-    - Color_BFE7A771: {r: 0.30588236, g: 0.30588236, b: 0.30588236, a: 0}
+    - Color_BFE7A771: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 0}
     - Color_C0094F21: {r: 0.10196079, g: 0.10196079, b: 0.10196079, a: 0}
     - Color_D1351635: {r: 1, g: 1, b: 1, a: 0}
     - Color_F909C112: {r: 0, g: 0, b: 0, a: 0}

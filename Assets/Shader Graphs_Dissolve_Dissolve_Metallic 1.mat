@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Dissolve_Dissolve_Metallic
+  m_Name: Shader Graphs_Dissolve_Dissolve_Metallic 1
   m_Shader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4,
     type: 3}
   m_Parent: {fileID: 0}
@@ -40,7 +40,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 76b2f7c0accea274d88286bc6bd39c10, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -65,19 +65,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 1
-    - _EdgeColorIntensity: 1
-    - _EdgeWidth: 0.189
+    - _Dissolve: 0
+    - _EdgeColorIntensity: 3
+    - _EdgeWidth: 0.13
     - _Metallic: 0
-    - _NoiseScale: 40
+    - _NoiseScale: 100
     - _NormalScale: 1
     - _OcclusionStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
     m_Colors:
-    - _BaseColor: {r: 5.5944533, g: 2.0503232, b: 3.5469413, a: 1}
-    - _EdgeColor: {r: 24.886358, g: 0.3908845, b: 10.255071, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 24.886358, g: 0.3908845, b: 4.0445685, a: 0}
     - _NoiseUVSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _Offest: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}

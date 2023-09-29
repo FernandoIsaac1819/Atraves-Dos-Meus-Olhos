@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneExit : MonoBehaviour, IInteractable
 {
     [SerializeField] private string m_InteractionText;
+    [SerializeField] private SceneField m_TargetScene;
+    [SerializeField] private SceneField m_ExitIdentifier;
     
     private bool m_IsInteracting = false;
-    public bool IsInteracted => m_IsInteracting;
+    public bool IsInteracting => m_IsInteracting;
 
-    [SerializeField] private string m_TargetScene;
-    [SerializeField] private string m_ExitIdentifier;
 
     public void Interact()
     {
@@ -20,17 +21,12 @@ public class SceneExit : MonoBehaviour, IInteractable
         PlayerPrefs.SetString("LastExit", m_ExitIdentifier);
         PlayerPrefs.Save();
 
-        LoadScreen.instance.LoadScene(m_TargetScene);
+        LoadScreen.Instance.LoadScene(m_TargetScene);
 
-        if(LoadScreen.instance.FinishedLoading) 
+        if(LoadScreen.Instance.FinishedLoading) 
         {
             m_IsInteracting = false;
         }
-    }
-
-    public void ShowIcon()
-    {
-        Debug.Log("Go to scene " + m_TargetScene);
     }
 
     public Transform GetTransform()
@@ -41,5 +37,10 @@ public class SceneExit : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         return m_InteractionText;
+    }
+
+    public string GetLocationName()
+    {
+        return m_TargetScene;
     }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 public interface IInteractable
 {
     string GetInteractionText();
-    bool IsInteracted { get; }
-    //string InteractionText { get; }
+    bool IsInteracting { get; }
     void Interact();
     Transform GetTransform();
 }

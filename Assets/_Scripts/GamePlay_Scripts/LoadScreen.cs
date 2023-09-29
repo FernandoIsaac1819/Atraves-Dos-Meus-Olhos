@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadScreen : MonoBehaviour
 {
-    public static LoadScreen instance {get; private set;}
+    public static LoadScreen Instance {get; private set;}
 
     [SerializeField] private GameObject m_MainLoadScreen;
     [SerializeField] private GameObject [] m_LoadScreens;
@@ -26,12 +26,12 @@ public class LoadScreen : MonoBehaviour
 
     void Awake() 
     {
-        if(instance == null) 
+        if(Instance == null) 
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         } 
-        else if(instance != this) 
+        else if(Instance != this) 
         {
             Destroy(gameObject);
         }
@@ -56,7 +56,7 @@ public class LoadScreen : MonoBehaviour
 
         if(m_LoadScreens[m_CurrentScreenIndex].activeSelf) 
         {
-            m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, Time.deltaTime * m_FillSpeed);
+            m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, Time.unscaledDeltaTime * m_FillSpeed);
 
             UpdatePercentageText(m_LoadScreens[m_CurrentScreenIndex].transform.Find("Fill").GetComponent<Image>());
         }
@@ -64,13 +64,13 @@ public class LoadScreen : MonoBehaviour
     }
 
 
-    public void LoadScene( string sceneName) 
+    public void LoadScene(string sceneName) 
     {
-        StartCoroutine(LoadSceneInBackground(sceneName));
+        StartCoroutine(LoadScene_Coroutine(sceneName));
     }
 
 
-    private IEnumerator LoadSceneInBackground(string sceneName)
+    private IEnumerator LoadScene_Coroutine(string sceneName)
     {
         SetLoadScreen();
 
@@ -93,7 +93,7 @@ public class LoadScreen : MonoBehaviour
     }
 
 
-    private void SetLoadScreen() 
+    public void SetLoadScreen() 
     {
         m_MainLoadScreen.SetActive(true);
 

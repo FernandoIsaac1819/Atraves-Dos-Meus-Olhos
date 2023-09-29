@@ -23,12 +23,14 @@ public class PlayerInteractUI : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     
     void Update()
     {
-        if(PlayerInteract.Instance.GetInteractable() != null) 
+        IInteractable interactable = PlayerInteract.Instance.GetInteractable();
+
+        if(interactable != null) 
         {
+            if(interactable.IsInteracting) {return;}
             Show(PlayerInteract.Instance.GetInteractable());
         }
         else 
@@ -37,13 +39,13 @@ public class PlayerInteractUI : MonoBehaviour
         }
     }
 
-    void Show(IInteractable interactable) 
+    public void Show(IInteractable interactable) 
     {
         InteractImage.SetActive(true);
         m_InteractionUGUI.text = interactable.GetInteractionText();
     }
 
-    void Hide() 
+    public void Hide() 
     {
         InteractImage.SetActive(false);
     }

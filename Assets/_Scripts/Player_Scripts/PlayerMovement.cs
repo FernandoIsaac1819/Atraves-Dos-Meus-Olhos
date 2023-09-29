@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement instance {get;private set;}
+    public static PlayerMovement Instance {get;private set;}
     private Rigidbody m_Rigidbody;
     private Transformation m_Transformation;
 
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float m_MovementSpeed;
     private float m_TurnAmount;
     private float m_ForwardAmount;
+    private bool m_IsRunning;
 
     [Header("Grounded")]
     [SerializeField] private bool m_IsGrounded;
@@ -49,17 +50,18 @@ public class PlayerMovement : MonoBehaviour
     public bool CanJump {get{return m_JumpReset;} set {m_JumpReset = value;}}
     public float TurnAmount {get{return m_TurnAmount;} set {m_TurnAmount = value;}}
     public float JumpPower {get{return m_JumpPower;} set {m_JumpPower = value;}}
+    public bool IsRunning {get {return m_IsRunning;} set {m_IsRunning = value;}}
     public float ForwardAmount {get{return m_ForwardAmount;} set {m_ForwardAmount = value;}}
     public float MovementSpeed {get{return m_MovementSpeed;} set {m_MovementSpeed = value;}}
 
     void Awake() 
     {
-        if(instance == null) 
+        if(Instance == null) 
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         } 
-        else if(instance != this) 
+        else if(Instance != this) 
         {
             Destroy(gameObject);
         }
@@ -73,6 +75,19 @@ public class PlayerMovement : MonoBehaviour
 
         HandleInputs.Instance.OnJumpPressed += OnJump_Pressed;
         HandleInputs.Instance.OnJumpReleased += OnJump_Released;
+
+        HandleInputs.Instance.OnRunPressed += OnRun_Pressed;
+        HandleInputs.Instance.OnRunReleased += OnRun_Released;
+    }
+
+    private void OnRun_Released(object sender, EventArgs e)
+    {
+        m_IsRunning = false;
+    }
+
+    private void OnRun_Pressed(object sender, EventArgs e)
+    {
+        m_IsRunning = true;
     }
 
     private void OnJump_Released(object sender, EventArgs e)
@@ -85,7 +100,36 @@ public class PlayerMovement : MonoBehaviour
         m_Jump = true;
     }
 
-    void Update()
+    /// <summary>
+    /// Changes the movement parameters depending on the transformation state
+    /// </summary>
+    void UpdateMovementParameters() 
+    {
+        if(m_Transformation.IsHuman) 
+        {
+            m_MovementSpeed = m_HumanWalkingSpeed;
+            m_JumpPower = m_HumanJumpPower;
+            m_AirControlAmount = m_HumanAirControl;
+
+            if(m_IsRunning) 
+            {
+                m_MovementSpeed = m_HumanRunningSpeed;
+            }
+
+        } else 
+        {
+            m_MovementSpeed = m_CatWalkingSpeed;
+            m_JumpPower = m_CatJumpPower;
+            m_AirControlAmount = m_CatAirControl;
+
+            if(m_IsRunning) 
+            {
+                m_MovementSpeed = m_CatRunningSpeed;
+            }
+        }
+    }
+
+    void FixedUpdate()
     {
         CheckGroundedStatus();
         UpdateMovementParameters();
@@ -193,34 +237,6 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-    /// <summary>
-    /// Changes the movement parameters depending on the transformation state
-    /// </summary>
-    void UpdateMovementParameters() 
-    {
-        if(m_Transformation.IsHuman) 
-        {
-            m_MovementSpeed = m_HumanWalkingSpeed;
-            m_JumpPower = m_HumanJumpPower;
-            m_AirControlAmount = m_HumanAirControl;
-
-            if(HandleInputs.Instance.IsRunPressed()) 
-            {
-                m_MovementSpeed = m_HumanRunningSpeed;
-            }
-
-        } else 
-        {
-            m_MovementSpeed = m_CatWalkingSpeed;
-            m_JumpPower = m_CatJumpPower;
-            m_AirControlAmount = m_CatAirControl;
-
-            if(HandleInputs.Instance.IsRunPressed()) 
-            {
-                m_MovementSpeed = m_CatRunningSpeed;
-            }
-        }
-    }
 
     /// <summary>
     /// Applies extra movement while the player is midair

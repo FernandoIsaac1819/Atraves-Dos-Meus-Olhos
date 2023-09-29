@@ -3,11 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class HandleInputs : MonoBehaviour
 {
-    private GameInputActions m_GameInputActions;
     public static HandleInputs Instance { get; private set; }
+
+    private GameInputActions m_PlayerInputActions;
+    public  GameInputActions PlayerInputActions {get {return m_PlayerInputActions;} set {m_PlayerInputActions = value;}}
 
     // MOVEMENT DIRECTION CALCULATION
     private Transform m_Cam;
@@ -24,12 +27,21 @@ public class HandleInputs : MonoBehaviour
 
     public EventHandler OnInteractPressed;
     public EventHandler OnInteractReleased;
+
     public EventHandler OnEmotePressed;
     public EventHandler OnEmoteReleased;
+
     public EventHandler OnJumpPressed;
     public EventHandler OnJumpReleased;
-    public EventHandler OnTransformStarted;
+
+    public EventHandler OnTransformPressed;
     public EventHandler OnTransformReleased;
+
+    public EventHandler OnRunPressed;
+    public EventHandler OnRunReleased;
+
+    public EventHandler OnMapPressed;
+    public EventHandler OnMapReleased;
 
     void Awake()
     {
@@ -44,32 +56,61 @@ public class HandleInputs : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        m_GameInputActions = new GameInputActions();
-        m_GameInputActions.Player.Enable();
-
-        m_GameInputActions.Player.Interact.performed += OnInteract_Performed;
-        m_GameInputActions.Player.Interact.canceled += OnInteract_Canceled;
-
-        m_GameInputActions.Player.Emote.performed += OnEmote_Performed;
-        m_GameInputActions.Player.Emote.canceled += OnEmote_Canceled;
-
-        m_GameInputActions.Player.Jump.performed += OnJump_Performed;
-        m_GameInputActions.Player.Jump.canceled += OnJump_Canceled;
-
-        m_GameInputActions.Player.Transform.started += OnTransform_Started;
-        m_GameInputActions.Player.Transform.performed += OnTransform_Performed;
-
     }
 
-    private void OnTransform_Performed(InputAction.CallbackContext context)
+    void Start() 
+    {
+        m_PlayerInputActions = new GameInputActions();
+        m_PlayerInputActions.Player.Enable();
+        m_PlayerInputActions.UI.Enable();
+
+        m_PlayerInputActions.Player.Run.performed += OnRun_Performed;
+        m_PlayerInputActions.Player.Run.canceled += OnRun_Canceled;
+
+        m_PlayerInputActions.Player.Interact.performed += OnInteract_Performed;
+        m_PlayerInputActions.Player.Interact.canceled += OnInteract_Canceled;
+
+        m_PlayerInputActions.Player.Emote.performed += OnEmote_Performed;
+        m_PlayerInputActions.Player.Emote.canceled += OnEmote_Canceled;
+
+        m_PlayerInputActions.Player.Jump.performed += OnJump_Performed;
+        m_PlayerInputActions.Player.Jump.canceled += OnJump_Canceled;
+
+        m_PlayerInputActions.Player.Transform.performed += OnTransform_Performed;
+        m_PlayerInputActions.Player.Transform.canceled += OnTransform_Canceled;
+
+        m_PlayerInputActions.UI.Menu.performed += OnMap_Performed;
+        m_PlayerInputActions.UI.Menu.canceled += OnMap_Canceled;
+    }
+
+    private void OnMap_Canceled(InputAction.CallbackContext context)
+    {
+        OnMapReleased?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnMap_Performed(InputAction.CallbackContext context)
+    {
+        OnMapPressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnRun_Canceled(InputAction.CallbackContext context)
+    {
+        OnRunReleased?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnRun_Performed(InputAction.CallbackContext context)
+    {
+        OnRunPressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnTransform_Canceled(InputAction.CallbackContext context)
     {
         OnTransformReleased?.Invoke(this, EventArgs.Empty);
     }
 
-    private void OnTransform_Started(InputAction.CallbackContext context)
+    private void OnTransform_Performed(InputAction.CallbackContext context)
     {
-        OnTransformStarted?.Invoke(this, EventArgs.Empty);
+        OnTransformPressed?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnJump_Canceled(InputAction.CallbackContext context)
@@ -102,19 +143,15 @@ public class HandleInputs : MonoBehaviour
         OnInteractPressed?.Invoke(this, EventArgs.Empty);
     }
 
-    public bool IsTransformedPressed()
-    {
-        return m_GameInputActions.Player.Transform.IsPressed();
-    }
 
     public bool IsRunPressed()
     {
-        return m_GameInputActions.Player.Run.IsPressed();
+        return m_PlayerInputActions.Player.Run.IsPressed();
     }
 
     public Vector2 GetCameraInput()
     {
-        m_CurrentCamInput = m_GameInputActions.Player.CameraController.ReadValue<Vector2>();
+        m_CurrentCamInput = m_PlayerInputActions.Player.CameraController.ReadValue<Vector2>();
         return m_CurrentCamInput;
     }
 
@@ -127,7 +164,7 @@ public class HandleInputs : MonoBehaviour
 
     public Vector3 GetMovementDirection()
     {
-        m_TargetMoveInput = m_GameInputActions.Player.Movement.ReadValue<Vector2>();
+        m_TargetMoveInput = m_PlayerInputActions.Player.Movement.ReadValue<Vector2>();
 
         m_CurrentMoveInput = Vector2.SmoothDamp(m_CurrentMoveInput, m_TargetMoveInput, ref m_SmoothInputVelocity, m_SmoothInputSpeed);
 
@@ -146,6 +183,11 @@ public class HandleInputs : MonoBehaviour
         m_MovementDirection.Normalize();
 
         return m_MovementDirection;
+    }
+
+    public Vector2 GetUINavigationVector() 
+    {
+        return m_PlayerInputActions.UI.Navigate.ReadValue<Vector2>();
     }
 
 

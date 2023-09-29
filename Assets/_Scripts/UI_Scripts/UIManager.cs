@@ -4,23 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Manages the UI elements and transitions for the game, including the start menu.
-/// </summary>
 public class UIManager : MonoBehaviour
 {
     // Singleton instance for the UIManager.
     public static UIManager Instance {get; private set;}
-
-    private EventHandler OnGameStarted;
-    
-    [Header("UI Animators")]
-    [SerializeField] private Animator m_StartMenuPanelAnimator;
-
-    [Header("UI Panels")]
-    [SerializeField] private GameObject m_StartMenuPanel;
 
     void Awake() 
     {
@@ -29,29 +19,23 @@ public class UIManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else if (Instance != this)
+        else if (Instance != this) 
         {
             Destroy(gameObject); 
         }
-
-        LoadStartMenu();
-
     }
 
-    /// <summary>
-    /// Loads and displays the start menu.
-    /// </summary>
-    private void LoadStartMenu()
+    public static void PauseGame(GameObject firstSelection) 
     {
-        m_StartMenuPanel.SetActive(true);
-        m_StartMenuPanelAnimator.SetBool("StartOn", true);
+        Time.timeScale = 0;
+        EventSystem.current.SetSelectedGameObject(firstSelection);
+        HandleInputs.Instance.PlayerInputActions.Player.Jump.Disable(); 
     }
 
-    /// <summary>
-    /// Initiates the game start process, hiding the start menu.
-    /// </summary>
-    public void StartGame() 
+    public static void ResumeGame() 
     {
-        m_StartMenuPanelAnimator.SetBool("StartOn", false);
+        HandleInputs.Instance.PlayerInputActions.Player.Jump.Enable();
+        Time.timeScale = 1f;
     }
+
 }

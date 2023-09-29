@@ -1,50 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// Manages the scaling of a button when it's selected or deselected.
-/// </summary>
 [RequireComponent(typeof(Button))]
 public class ButtonSelection : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [Header("Settings")]
-    [Tooltip("Scale of the button when it's selected.")]
     [SerializeField] private Vector3 selectedScale = new Vector3(1.1f, 1.1f, 1.1f);
-    [Tooltip("Speed at which the button scales to its target size.")]
-    [SerializeField] private float scaleSpeed = 10f;
+    [SerializeField] private float scaleSpeed = 2f;
 
     private Vector3 originalScale;
-    private Vector3 targetScale;
-    private Button button;
+    private bool isSelected;
+    private float pingPongTime;
 
-    /// <summary>
-    /// Initializes the button and sets the original scale.
-    /// </summary>
     private void Awake()
     {
-        button = GetComponent<Button>();
         originalScale = transform.localScale;
-        targetScale = originalScale;
+        isSelected = false;
     }
-    
-    /// <summary>
-    /// Smoothly scales the button towards the target scale.
-    /// </summary>
+
     private void Update()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
+        if (isSelected)
+        {
+            pingPongTime += Time.deltaTime * scaleSpeed;
+            float scaleValue = Mathf.PingPong(pingPongTime, 1f);
+            transform.localScale = Vector3.Lerp(originalScale, selectedScale, scaleValue);
+        }
+        else
+        {
+            // Reset the button scale to the original scale when deselected
+            transform.localScale = originalScale;
+            pingPongTime = 0f;
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        targetScale = selectedScale;
+        isSelected = true;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        targetScale = originalScale;
+        isSelected = false;
     }
 }
+

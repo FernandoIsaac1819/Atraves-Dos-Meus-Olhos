@@ -8,7 +8,7 @@ public class PlayerInteract : MonoBehaviour
     public static PlayerInteract Instance {get; private set;}
 
     [SerializeField] private float m_InteractionRange;
-    private bool m_InteractPressed;
+    private bool m_Interact;
 
     void Awake()
     {
@@ -33,10 +33,10 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
-        if(m_InteractPressed) 
+        if(m_Interact) 
         {
             IInteractable interactable = GetInteractable();
-
+            
             if(interactable != null) 
             {
                 interactable.Interact();
@@ -79,15 +79,14 @@ public class PlayerInteract : MonoBehaviour
         return closestInteratable;
     } 
 
-
     private void OnInteract_Released(object sender, EventArgs e)
     {
-        m_InteractPressed = false;
+        m_Interact = false;
     }
 
 
     private void OnInteract_Pressed(object sender, EventArgs e)
     {
-        m_InteractPressed = true;
+        m_Interact = true;
     }
 }
