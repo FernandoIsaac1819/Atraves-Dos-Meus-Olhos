@@ -53,14 +53,12 @@ public class LoadScreen : MonoBehaviour
 
     void Update()
     {
-
         if(m_LoadScreens[m_CurrentScreenIndex].activeSelf) 
         {
             m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, Time.unscaledDeltaTime * m_FillSpeed);
 
             UpdatePercentageText(m_LoadScreens[m_CurrentScreenIndex].transform.Find("Fill").GetComponent<Image>());
         }
-        
     }
 
 
@@ -72,6 +70,8 @@ public class LoadScreen : MonoBehaviour
 
     private IEnumerator LoadScene_Coroutine(string sceneName)
     {
+        HandleInputs.Instance.PlayerInputActions.UI.Disable();
+
         SetLoadScreen();
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
@@ -86,6 +86,10 @@ public class LoadScreen : MonoBehaviour
                 asyncOperation.allowSceneActivation = true;
                 yield return new WaitForSeconds(0.4f);
                 m_Animator.SetTrigger("FadeOut");
+
+                //Waits 2 seconds before reactivating the UI control map
+                yield return new WaitForSeconds(2f);
+                HandleInputs.Instance.PlayerInputActions.UI.Enable();
             }
 
             yield return null;

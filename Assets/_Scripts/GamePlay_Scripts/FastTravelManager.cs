@@ -61,7 +61,7 @@ public class FastTravelManager : MonoBehaviour
             else 
             {
                 LoadScreen.Instance.LoadScene(locationName);
-                UIManager.ResumeGame(); 
+                UIManager.Instance.DeactivateMenu();
             }
             
         }  

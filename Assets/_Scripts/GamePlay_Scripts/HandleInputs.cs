@@ -40,8 +40,8 @@ public class HandleInputs : MonoBehaviour
     public EventHandler OnRunPressed;
     public EventHandler OnRunReleased;
 
-    public EventHandler OnMapPressed;
-    public EventHandler OnMapReleased;
+    public EventHandler OnMenuPressed;
+    public EventHandler OnMenuReleased;
 
     void Awake()
     {
@@ -56,10 +56,7 @@ public class HandleInputs : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start() 
-    {
         m_PlayerInputActions = new GameInputActions();
         m_PlayerInputActions.Player.Enable();
         m_PlayerInputActions.UI.Enable();
@@ -79,18 +76,18 @@ public class HandleInputs : MonoBehaviour
         m_PlayerInputActions.Player.Transform.performed += OnTransform_Performed;
         m_PlayerInputActions.Player.Transform.canceled += OnTransform_Canceled;
 
-        m_PlayerInputActions.UI.Menu.performed += OnMap_Performed;
-        m_PlayerInputActions.UI.Menu.canceled += OnMap_Canceled;
+        m_PlayerInputActions.UI.Menu.performed += OnMenu_Performed;
+        m_PlayerInputActions.UI.Menu.canceled += OnMenu_Canceled;
     }
 
-    private void OnMap_Canceled(InputAction.CallbackContext context)
+    private void OnMenu_Canceled(InputAction.CallbackContext context)
     {
-        OnMapReleased?.Invoke(this, EventArgs.Empty);
+        OnMenuReleased?.Invoke(this, EventArgs.Empty);
     }
 
-    private void OnMap_Performed(InputAction.CallbackContext context)
+    private void OnMenu_Performed(InputAction.CallbackContext context)
     {
-        OnMapPressed?.Invoke(this, EventArgs.Empty);
+        OnMenuPressed?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnRun_Canceled(InputAction.CallbackContext context)
@@ -143,7 +140,6 @@ public class HandleInputs : MonoBehaviour
         OnInteractPressed?.Invoke(this, EventArgs.Empty);
     }
 
-
     public bool IsRunPressed()
     {
         return m_PlayerInputActions.Player.Run.IsPressed();
@@ -160,7 +156,6 @@ public class HandleInputs : MonoBehaviour
         Vector3 moveDir = GetMovementDirection();
         return moveDir.magnitude > 0;
     }
-
 
     public Vector3 GetMovementDirection()
     {
