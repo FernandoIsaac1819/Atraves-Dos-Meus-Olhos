@@ -90,6 +90,7 @@ public class LoadScreen : MonoBehaviour
                 //Waits 2 seconds before reactivating the UI control map
                 yield return new WaitForSeconds(2f);
                 HandleInputs.Instance.PlayerInputActions.UI.Enable();
+                HandleInputs.Instance.PlayerInputActions.Player.Enable();
             }
 
             yield return null;

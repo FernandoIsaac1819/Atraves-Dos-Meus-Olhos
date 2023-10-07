@@ -73,7 +73,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Emote "",
+                    ""name"": ""Emote"",
                     ""type"": ""Button"",
                     ""id"": ""cfbbdf19-7639-4b2a-b2dd-44b30afae1a7"",
                     ""expectedControlType"": ""Button"",
@@ -292,23 +292,12 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""aed2f2e9-4aec-4745-bff2-0ccf5688faa7"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keybroad"",
-                    ""action"": ""Emote "",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4298e19b-c03b-47b2-9113-e8b8ea68bc92"",
+                    ""id"": ""4899c3f1-6f83-44d4-90fb-4b22721ffd14"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
-                    ""action"": ""Emote "",
+                    ""action"": ""Emote"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -936,7 +925,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_CameraController = m_Player.FindAction("Camera Controller", throwIfNotFound: true);
-        m_Player_Emote = m_Player.FindAction("Emote ", throwIfNotFound: true);
+        m_Player_Emote = m_Player.FindAction("Emote", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);

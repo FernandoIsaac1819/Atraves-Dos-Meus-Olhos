@@ -6,9 +6,12 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     public static PlayerInteract Instance {get; private set;}
-
+    public EventHandler OnInteractLoading;
+    public EventHandler OnInteractNotLoading;
     [SerializeField] private float m_InteractionRange;
-    private bool m_Interact;
+    private bool m_IsInteractPressed;
+    private bool m_CanInteract = false;
+    
 
     void Awake()
     {
@@ -28,23 +31,46 @@ public class PlayerInteract : MonoBehaviour
     {
         HandleInputs.Instance.OnInteractPressed += OnInteract_Pressed;
         HandleInputs.Instance.OnInteractReleased += OnInteract_Released;
+        PlayerInteractUI.Instance.OnInteractLoaded += OnInteract_Loaded;
     }
 
+    private void OnInteract_Loaded(object sender, EventArgs e)
+    {
+        m_CanInteract = true;
+    }
 
     void Update()
     {
-        if(m_Interact) 
+        if(m_IsInteractPressed) 
         {
             IInteractable interactable = GetInteractable();
             
             if(interactable != null) 
             {
-                interactable.Interact();
+                if(m_CanInteract) 
+                {
+                    interactable.Interact();
+                    m_CanInteract = false;
+                }
+
             }
+        }
+        else 
+        {
+            OnInteractNotLoading?.Invoke(this, EventArgs.Empty);
         }
   
     }
 
+    private void OnInteract_Released(object sender, EventArgs e)
+    {
+        m_IsInteractPressed = false;
+    }
+
+    private void OnInteract_Pressed(object sender, EventArgs e)
+    {
+        m_IsInteractPressed = true;
+    }
 
     public IInteractable GetInteractable () 
     {
@@ -79,14 +105,5 @@ public class PlayerInteract : MonoBehaviour
         return closestInteratable;
     } 
 
-    private void OnInteract_Released(object sender, EventArgs e)
-    {
-        m_Interact = false;
-    }
-
-
-    private void OnInteract_Pressed(object sender, EventArgs e)
-    {
-        m_Interact = true;
-    }
+    
 }
