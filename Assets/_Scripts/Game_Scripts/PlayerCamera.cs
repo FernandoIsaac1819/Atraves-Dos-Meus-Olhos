@@ -18,9 +18,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float m_CatMiddleRigHeight;
     [SerializeField] private float m_CatMiddleRigRadius;
 
-    [Header("Transformation")]
-
-    [SerializeField] private float m_TransformSpeed;
+    private float m_TransformSpeed = 1.5f;
 
     private float m_CurrentMiddleRigHeight;
     private float m_CurrentMiddleRigRadius;

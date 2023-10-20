@@ -3960,7 +3960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8543eb102f4e84681df32335be5924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedScale: {x: 1.1, y: 1.1, z: 1.1}
+  selectedScale: {x: 1.1, y: 1, z: 1.1}
   scaleSpeed: 1.6
 --- !u!222 &8584777563840063999
 CanvasRenderer:

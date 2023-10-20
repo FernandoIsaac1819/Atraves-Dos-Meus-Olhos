@@ -11,7 +11,6 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float m_InteractionRange;
     private bool m_IsInteractPressed;
     private bool m_CanInteract = false;
-    
 
     void Awake()
     {
@@ -26,11 +25,10 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-
     void Start() 
     {
         HandleInputs.Instance.OnInteractPressed += OnInteract_Pressed;
-        HandleInputs.Instance.OnInteractReleased += OnInteract_Released;
+        HandleInputs.Instance.OnInteractReleased += OnInteract_Released;        
         PlayerInteractUI.Instance.OnInteractLoaded += OnInteract_Loaded;
     }
 
@@ -49,8 +47,8 @@ public class PlayerInteract : MonoBehaviour
             {
                 if(m_CanInteract) 
                 {
-                    interactable.Interact();
                     m_CanInteract = false;
+                    interactable.Interact();
                 }
 
             }
@@ -60,16 +58,6 @@ public class PlayerInteract : MonoBehaviour
             OnInteractNotLoading?.Invoke(this, EventArgs.Empty);
         }
   
-    }
-
-    private void OnInteract_Released(object sender, EventArgs e)
-    {
-        m_IsInteractPressed = false;
-    }
-
-    private void OnInteract_Pressed(object sender, EventArgs e)
-    {
-        m_IsInteractPressed = true;
     }
 
     public IInteractable GetInteractable () 
@@ -104,6 +92,16 @@ public class PlayerInteract : MonoBehaviour
 
         return closestInteratable;
     } 
+
+    private void OnInteract_Released(object sender, EventArgs e)
+    {
+        m_IsInteractPressed = false;
+    }
+
+    private void OnInteract_Pressed(object sender, EventArgs e)
+    {
+        m_IsInteractPressed = true;
+    }
 
     
 }

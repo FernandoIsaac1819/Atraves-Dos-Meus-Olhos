@@ -53,27 +53,31 @@ public class PlayerInteractUI : MonoBehaviour
 
     void Update()
     {
-        HideShowInteractIcon();
+        ShowInteractIcon();
 
         if(m_IsInteractIconloading) 
         {
-            m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, fillSpeed * Time.unscaledDeltaTime);
-            m_InteractLoadingImage.fillAmount = m_CurrentFill;
-
-            if(Mathf.Approximately(m_CurrentFill, m_TargetFill)) 
-            {
-                OnInteractLoaded?.Invoke(this, EventArgs.Empty);
-            }
+            LoadInteractIcon();
         }
         else 
         {
             m_InteractLoadingImage.fillAmount = 0;
         }
-
-        
     }
 
-    void HideShowInteractIcon() 
+    void LoadInteractIcon() 
+    {
+        m_CurrentFill = Mathf.MoveTowards(m_CurrentFill, m_TargetFill, fillSpeed * Time.unscaledDeltaTime);
+        m_InteractLoadingImage.fillAmount = m_CurrentFill;
+
+        if(Mathf.Approximately(m_CurrentFill, m_TargetFill)) 
+        {
+            OnInteractLoaded?.Invoke(this, EventArgs.Empty);
+            Hide();
+        }
+    }
+
+    void ShowInteractIcon() 
     {
         IInteractable interactable = PlayerInteract.Instance.GetInteractable();
 
