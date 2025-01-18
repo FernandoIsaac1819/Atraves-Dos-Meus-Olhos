@@ -1013,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!225 &1852387589
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2354,8 +2354,8 @@ MonoBehaviour:
   m_CatFace: {fileID: 6918877677463824652}
   m_UICamera: {fileID: 843002094}
   m_MaxOffset: {x: 14, y: 14}
-  m_Sensitivity: 2
-  m_ReturnSpeed: 5
+  m_Sensitivity: 2.24
+  m_ReturnSpeed: 3
   m_CenterPosition: {x: 0, y: 0}
 --- !u!224 &3214098855252149663
 RectTransform:

@@ -870,6 +870,17 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9e64e6b5-1fa3-49b6-9cab-835473de28af"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""22f71c57-c9d2-423d-8c45-ebe6e340e894"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",

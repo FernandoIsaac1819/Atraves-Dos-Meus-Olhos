@@ -433,7 +433,6 @@ GameObject:
   - component: {fileID: 666243211597389529}
   - component: {fileID: 441151160204442128}
   - component: {fileID: 5590332199056054869}
-  - component: {fileID: 7161446601945320905}
   - component: {fileID: 5175503015371646054}
   - component: {fileID: 5433820623720063329}
   m_Layer: 5
@@ -527,33 +526,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7161446601945320905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5607395389334245927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5684e02084fb17146bf0786d087189fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CanvasGroup: {fileID: 5433820623720063329}
-  m_Animator: {fileID: 5175503015371646054}
-  m_MainLoadScreen: {fileID: 7611991189484626121}
-  m_Percentage: {fileID: 503243815193975239}
-  m_FillImages:
-  - {fileID: 7795622680560133299}
-  - {fileID: 3931411579770609397}
-  - {fileID: 3422732357748844081}
-  - {fileID: 9044298395736302458}
-  m_LoadScreens:
-  - {fileID: 1905459913087962471}
-  - {fileID: 8666979409783089814}
-  - {fileID: 5857574403008684372}
-  - {fileID: 549321397592718572}
-  m_FillSpeed: 0.15
 --- !u!95 &5175503015371646054
 Animator:
   serializedVersion: 5

@@ -24,12 +24,12 @@ public class ControlCatFace : MonoBehaviour
 
     private void Update()
     {
-        Vector2 leftStickInput = HandleInputs.Instance.PlayerInputActions.UI.Cat.ReadValue<Vector2>();
+        Vector2 Input = HandleInputs.Instance.PlayerInputActions.UI.Cat.ReadValue<Vector2>();
 
         // Calculate the target position based on left stick input
         Vector2 targetPosition = new Vector2(
-            Mathf.Lerp(-m_MaxOffset.x, m_MaxOffset.x, leftStickInput.x * m_Sensitivity),
-            Mathf.Lerp(-m_MaxOffset.y, m_MaxOffset.y, leftStickInput.y * m_Sensitivity)
+            Mathf.Lerp(-m_MaxOffset.x, m_MaxOffset.x, Input.x * m_Sensitivity),
+            Mathf.Lerp(-m_MaxOffset.y, m_MaxOffset.y, Input.y * m_Sensitivity)
         );
 
         // Smoothly move the cat face towards the target position or back to the center position
