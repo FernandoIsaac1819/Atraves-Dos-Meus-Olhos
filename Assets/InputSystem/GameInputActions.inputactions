@@ -25,12 +25,30 @@
                 },
                 {
                     "name": "Transform",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "59d1df28-7092-4746-a32e-f3b491d56f3f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Next Form",
+                    "type": "Button",
+                    "id": "9fea4ac9-9052-4bb3-867a-4cf577f205a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Revert To Human",
+                    "type": "Button",
+                    "id": "7a5dd20b-d58b-4feb-abe7-b64bbf93c201",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Run",
@@ -49,15 +67,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Emote",
-                    "type": "Button",
-                    "id": "cfbbdf19-7639-4b2a-b2dd-44b30afae1a7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -84,7 +93,7 @@
                 {
                     "name": "",
                     "id": "de9790d9-0e80-4054-98f8-210e5f0b9874",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -205,7 +214,7 @@
                 {
                     "name": "",
                     "id": "45aa26df-e49b-471b-9a50-3641775014dc",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<DualShockGamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -227,8 +236,8 @@
                 {
                     "name": "",
                     "id": "dc6bb5a4-150c-41b5-b304-c08a1e65e0c2",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
+                    "path": "<DualShockGamepad>/buttonNorth",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "PS5",
                     "action": "Transform",
@@ -249,7 +258,7 @@
                 {
                     "name": "",
                     "id": "e70a9d57-de99-41b6-b58f-606877e5a451",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<DualShockGamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -260,7 +269,7 @@
                 {
                     "name": "",
                     "id": "8f690c9f-2ac9-4a28-82c5-2832a3fd0205",
-                    "path": "<Gamepad>/rightStick",
+                    "path": "<DualShockGamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -270,19 +279,8 @@
                 },
                 {
                     "name": "",
-                    "id": "4899c3f1-6f83-44d4-90fb-4b22721ffd14",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PS5",
-                    "action": "Emote",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7cffe1d4-e353-4dd1-8d14-f0b0079f08dc",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<DualShockGamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -298,6 +296,39 @@
                     "processors": "",
                     "groups": "Keybroad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6c773af-867e-430a-ac10-6ea10a0bffea",
+                    "path": "<DualShockGamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS5",
+                    "action": "Next Form",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0da8a314-a655-4e96-9e8c-50d53000ba9f",
+                    "path": "<DualShockGamepad>/buttonNorth",
+                    "interactions": "Hold(duration=0.7)",
+                    "processors": "",
+                    "groups": "PS5",
+                    "action": "Revert To Human",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31480494-09b6-48dc-bca5-bd9131f6c880",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keybroad",
+                    "action": "Revert To Human",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -849,7 +880,7 @@
                 {
                     "name": "",
                     "id": "9e64e6b5-1fa3-49b6-9cab-835473de28af",
-                    "path": "<Mouse>/position",
+                    "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneExit : MonoBehaviour, IInteractable
 {
@@ -15,6 +12,7 @@ public class SceneExit : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        // I may not need to use this isInteracting thing
         if(m_IsInteracting) {return;}
         m_IsInteracting = true;
 
@@ -37,10 +35,5 @@ public class SceneExit : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         return m_InteractionText;
-    }
-
-    public string GetLocationName()
-    {
-        return m_TargetScene;
     }
 }

@@ -11,17 +11,13 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement Instance {get;private set;}
     private Rigidbody m_Rigidbody;
-    private Transformation m_Transformation;
 
     [Header("Movement")]
-    [SerializeField] private float m_CatWalkingSpeed;
-    [SerializeField] private float m_CatRunningSpeed;
-    [SerializeField] private float m_HumanWalkingSpeed;
-    [SerializeField] private float m_HumanRunningSpeed;
+    [SerializeField] private float m_MovementSpeed;
     [SerializeField] private float m_MovingTurnSpeed;
     [SerializeField] private float m_StationaryTurnSpeed;
+
     private Vector3 m_MoveDirection;
-    private float m_MovementSpeed;
     private float m_TurnAmount;
     private float m_ForwardAmount;
     private bool m_IsRunning;
@@ -34,13 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private bool m_JumpReset = true;
-    [SerializeField] private float m_CatJumpPower;
-    [SerializeField] private float m_HumanJumpPower;
     [SerializeField] private float m_AirControlAmount;
-    [SerializeField] private float m_CatAirControl;
-    [SerializeField] private float m_HumanAirControl;
     [SerializeField] private float m_JumpCoolDown;
-    private float m_JumpPower;
+    [SerializeField] private float m_JumpPower;
     private bool m_Jump;
     
     //GETTERS AND SETTERS
@@ -69,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        m_Transformation = GetComponentInParent<Transformation>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
@@ -80,59 +71,34 @@ public class PlayerMovement : MonoBehaviour
         HandleInputs.Instance.OnRunReleased += OnRun_Released;
     }
 
-    private void OnRun_Released(object sender, EventArgs e)
-    {
-        m_IsRunning = false;
-    }
-
-    private void OnRun_Pressed(object sender, EventArgs e)
-    {
-        m_IsRunning = true;
-    }
-
-    private void OnJump_Released(object sender, EventArgs e)
-    {
-        m_Jump = false;
-    }
-
-    private void OnJump_Pressed(object sender, EventArgs e)
-    {
-        m_Jump = true;
-    }
-
     /// <summary>
     /// Changes the movement parameters depending on the transformation state
     /// </summary>
-    void UpdateMovementParameters() 
+    public void UpdateFormParameter(TransformationBase_SO form) 
     {
-        if(m_Transformation.IsHuman) 
+        m_MovementSpeed = form.walking_speed;
+
+        m_JumpPower = form.jump_power;
+
+        m_AirControlAmount = form.air_control_amount;
+
+        m_JumpCoolDown = form.jump_cooldown;
+
+        m_MovingTurnSpeed = form.move_turning_speed;
+
+        m_StationaryTurnSpeed = form.idle_turning_speed;
+
+        if(m_IsRunning) 
         {
-            m_MovementSpeed = m_HumanWalkingSpeed;
-            m_JumpPower = m_HumanJumpPower;
-            m_AirControlAmount = m_HumanAirControl;
-
-            if(m_IsRunning) 
-            {
-                m_MovementSpeed = m_HumanRunningSpeed;
-            }
-
-        } else 
-        {
-            m_MovementSpeed = m_CatWalkingSpeed;
-            m_JumpPower = m_CatJumpPower;
-            m_AirControlAmount = m_CatAirControl;
-
-            if(m_IsRunning) 
-            {
-                m_MovementSpeed = m_CatRunningSpeed;
-            }
+            m_MovementSpeed = form.running_speed;
         }
+
     }
 
     void FixedUpdate()
     {
         CheckGroundedStatus();
-        UpdateMovementParameters();
+        //UpdateMovementParameters();
 
         if(m_IsGrounded) 
         {
@@ -227,13 +193,11 @@ public class PlayerMovement : MonoBehaviour
 		{
 			m_GroundNormal = hitInfo.normal;
 			m_IsGrounded = true; 
-            m_Transformation.CanTransform = true;
 		}
 		else
 		{
 			m_IsGrounded = false;
 			m_GroundNormal = Vector3.up;
-            m_Transformation.CanTransform = false;
 		}
 	}
 
@@ -266,43 +230,24 @@ public class PlayerMovement : MonoBehaviour
 		transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
 	}
 
-    /// <summary>
-    /// Controls the XAxis of the cinemachine 
-    /// </summary>
-    
-    /*
-    void WalkUpStairs() 
+    private void OnRun_Released(object sender, EventArgs e)
     {
-        RaycastHit HitLow;
-        if(Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection(Vector3.forward), out HitLow, m_StairDistanceLow)) 
-        {
-            RaycastHit HitHigh;
-            if(!Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection(Vector3.forward), out HitHigh, m_StairDistanceHigh)) 
-            {
-                m_Rigidbody.position -= new Vector3( 0, -m_StepUpSmooth , 0);
-            }
-        }
-
-        RaycastHit HitLow45;
-        if(Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection( 1.5f, 0 , 1 ), out HitLow45, m_StairDistanceLow)) 
-        {
-            RaycastHit HitHigh45;
-            if(!Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection( 1.5f, 0 , 1 ), out HitHigh45, m_StairDistanceHigh)) 
-            {
-                m_Rigidbody.position -= new Vector3( 0, -m_StepUpSmooth , 0);
-            }
-        }
-
-        RaycastHit HitLowMinus45;
-        if(Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection( -1.5f, 0 , 1 ), out HitLowMinus45, m_StairDistanceLow)) 
-        {
-            RaycastHit HitHighMinus45;
-            if(!Physics.Raycast(m_StepUpLow.transform.position, transform.TransformDirection( -1.5f, 0 , 1 ), out HitHighMinus45, m_StairDistanceHigh)) 
-            {
-                m_Rigidbody.position -= new Vector3( 0, -m_StepUpSmooth , 0);
-            }
-        }
+        m_IsRunning = false;
     }
-    */
+
+    private void OnRun_Pressed(object sender, EventArgs e)
+    {
+        m_IsRunning = true;
+    }
+
+    private void OnJump_Released(object sender, EventArgs e)
+    {
+        m_Jump = false;
+    }
+
+    private void OnJump_Pressed(object sender, EventArgs e)
+    {
+        m_Jump = true;
+    }
 
 }

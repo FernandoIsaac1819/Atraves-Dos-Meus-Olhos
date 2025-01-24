@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,8 @@ public class HandleInputs : MonoBehaviour
     private GameInputActions m_PlayerInputActions;
     public  GameInputActions PlayerInputActions {get {return m_PlayerInputActions;} set {m_PlayerInputActions = value;}}
 
+    public InputAction On_NextForm_Perfomed { get; private set; }
+
     // MOVEMENT DIRECTION CALCULATION
     private Transform m_Cam;
     private Vector3 m_CamForward;
@@ -23,13 +26,13 @@ public class HandleInputs : MonoBehaviour
 
     // CAMERA CONTROL
     private Vector3 m_CurrentCamInput;
-    private Vector3 m_TargetCamInput;
-
+    
+    //Events
     public EventHandler OnInteractPressed;
     public EventHandler OnInteractReleased;
 
-    public EventHandler OnEmotePressed;
-    public EventHandler OnEmoteReleased;
+    public EventHandler OnNextFormPressed;
+    public EventHandler OnNextFormReleased;
 
     public EventHandler OnJumpPressed;
     public EventHandler OnJumpReleased;
@@ -42,6 +45,9 @@ public class HandleInputs : MonoBehaviour
 
     public EventHandler OnMenuPressed;
     public EventHandler OnMenuReleased;
+
+    public EventHandler On_RevertHumanPressed;
+    public EventHandler On_RevertHumanCanceled;
 
     void Awake()
     {
@@ -61,14 +67,14 @@ public class HandleInputs : MonoBehaviour
         m_PlayerInputActions.Player.Enable();
         m_PlayerInputActions.UI.Enable();
 
+        m_PlayerInputActions.Player.RevertToHuman.performed += On_ReverToHuman_Perfomed;
+        m_PlayerInputActions.Player.RevertToHuman.canceled += On_ReverToHuman_Canceled;
+
         m_PlayerInputActions.Player.Run.performed += OnRun_Performed;
         m_PlayerInputActions.Player.Run.canceled += OnRun_Canceled;
 
         m_PlayerInputActions.Player.Interact.performed += OnInteract_Performed;
         m_PlayerInputActions.Player.Interact.canceled += OnInteract_Canceled;
-
-        m_PlayerInputActions.Player.Emote.performed += OnEmote_Performed;
-        m_PlayerInputActions.Player.Emote.canceled += OnEmote_Canceled;
 
         m_PlayerInputActions.Player.Jump.performed += OnJump_Performed;
         m_PlayerInputActions.Player.Jump.canceled += OnJump_Canceled;
@@ -78,6 +84,31 @@ public class HandleInputs : MonoBehaviour
 
         m_PlayerInputActions.UI.Menu.performed += OnMenu_Performed;
         m_PlayerInputActions.UI.Menu.canceled += OnMenu_Canceled;
+
+        m_PlayerInputActions.Player.NextForm.performed += OnNextForm_Perfomed;
+        m_PlayerInputActions.Player.NextForm.canceled += OnNextForm_Released;
+
+    }
+
+    private void On_ReverToHuman_Canceled(InputAction.CallbackContext context)
+    {
+        On_RevertHumanCanceled?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void On_ReverToHuman_Perfomed(InputAction.CallbackContext context)
+    {
+        On_RevertHumanPressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnNextForm_Perfomed(InputAction.CallbackContext context)
+    {
+        OnNextFormPressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnNextForm_Released(InputAction.CallbackContext context) 
+    {
+        OnNextFormReleased?.Invoke(this, EventArgs.Empty);
+      
     }
 
     private void OnMenu_Canceled(InputAction.CallbackContext context)
@@ -118,16 +149,6 @@ public class HandleInputs : MonoBehaviour
     private void OnJump_Performed(InputAction.CallbackContext context)
     {
         OnJumpPressed?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnEmote_Canceled(InputAction.CallbackContext context)
-    {
-        OnEmoteReleased?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnEmote_Performed(InputAction.CallbackContext context)
-    {
-        OnEmotePressed?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnInteract_Canceled(InputAction.CallbackContext context)

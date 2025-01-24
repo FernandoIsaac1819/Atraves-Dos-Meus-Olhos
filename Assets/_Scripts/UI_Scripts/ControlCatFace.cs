@@ -15,7 +15,7 @@ public class ControlCatFace : MonoBehaviour
     [SerializeField] private Vector2 m_MaxOffset = new Vector2(14, 14);
     [SerializeField] private float m_Sensitivity = 0.5f;
     [SerializeField] private float m_ReturnSpeed = 2f;
-    public Vector2 m_CenterPosition;
+    [HideInInspector] public Vector2 m_CenterPosition;
 
     private void Start()
     {

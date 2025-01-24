@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d904f6f3173f440858dff2d96e5ec7, type: 3}
+  m_Name: Form 2
+  m_EditorClassIdentifier: 
+  name: Form 2
+  icon: {fileID: 0}
+  form_prefab: {fileID: 429370432040882170, guid: e1d5e07410d9cb74d85a9b338b9ecfae,
+    type: 3}
+  form_avatar: {fileID: 9000000, guid: f0955f8097546724ca5e52bd0951e0cf, type: 3}
+  form_collider: {fileID: 7914669894587121783, guid: e1d5e07410d9cb74d85a9b338b9ecfae,
+    type: 3}
+  walking_speed: 1
+  running_speed: 2
+  move_turning_speed: 360
+  idle_turning_speed: 360
+  jump_power: 3
+  air_control_amount: 1
+  jump_cooldown: 1.2

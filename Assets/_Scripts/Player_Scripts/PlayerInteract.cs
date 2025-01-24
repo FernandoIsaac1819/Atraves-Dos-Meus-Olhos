@@ -6,11 +6,9 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     public static PlayerInteract Instance {get; private set;}
-    public EventHandler OnInteractLoading;
     public EventHandler OnInteractNotLoading;
     [SerializeField] private float m_InteractionRange;
     private bool m_IsInteractPressed;
-    private bool m_CanInteract = false;
 
     void Awake()
     {
@@ -29,12 +27,6 @@ public class PlayerInteract : MonoBehaviour
     {
         HandleInputs.Instance.OnInteractPressed += OnInteract_Pressed;
         HandleInputs.Instance.OnInteractReleased += OnInteract_Released;        
-        PlayerInteractUI.Instance.OnInteractLoaded += OnInteract_Loaded;
-    }
-
-    private void OnInteract_Loaded(object sender, EventArgs e)
-    {
-        m_CanInteract = true;
     }
 
     void Update()
@@ -43,19 +35,10 @@ public class PlayerInteract : MonoBehaviour
         {
             IInteractable interactable = GetInteractable();
             
-            if(interactable != null) 
+            if(interactable != null && PlayerInteractUI.Instance.CanActivateInteraction) 
             {
-                if(m_CanInteract) 
-                {
-                    m_CanInteract = false;
-                    interactable.Interact();
-                }
-
+                interactable.Interact();
             }
-        }
-        else 
-        {
-            OnInteractNotLoading?.Invoke(this, EventArgs.Empty);
         }
   
     }
@@ -74,23 +57,23 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        IInteractable closestInteratable = null;
+        IInteractable closestInteractable = null;
 
         foreach(IInteractable interactable in InteractableList) 
         {
-            if(closestInteratable == null) 
+            if(closestInteractable == null) 
             {
-                closestInteratable = interactable;
+                closestInteractable = interactable;
             }
             else if(Vector3.Distance(transform.position, interactable.GetTransform().position) < 
-            Vector3.Distance(transform.position, closestInteratable.GetTransform().position)) 
+            Vector3.Distance(transform.position, closestInteractable.GetTransform().position)) 
             {
-                closestInteratable = interactable;
+                closestInteractable = interactable;
             }
             
         }
 
-        return closestInteratable;
+        return closestInteractable;
     } 
 
     private void OnInteract_Released(object sender, EventArgs e)

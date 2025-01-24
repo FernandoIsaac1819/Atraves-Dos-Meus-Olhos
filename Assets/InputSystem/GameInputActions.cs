@@ -47,12 +47,30 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Transform"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""59d1df28-7092-4746-a32e-f3b491d56f3f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Next Form"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fea4ac9-9052-4bb3-867a-4cf577f205a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Revert To Human"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a5dd20b-d58b-4feb-abe7-b64bbf93c201"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Run"",
@@ -71,15 +89,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Emote"",
-                    ""type"": ""Button"",
-                    ""id"": ""cfbbdf19-7639-4b2a-b2dd-44b30afae1a7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Interact"",
@@ -106,7 +115,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""de9790d9-0e80-4054-98f8-210e5f0b9874"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -227,7 +236,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""45aa26df-e49b-471b-9a50-3641775014dc"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -249,8 +258,8 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""dc6bb5a4-150c-41b5-b304-c08a1e65e0c2"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""PS5"",
                     ""action"": ""Transform"",
@@ -271,7 +280,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e70a9d57-de99-41b6-b58f-606877e5a451"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -282,7 +291,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8f690c9f-2ac9-4a28-82c5-2832a3fd0205"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<DualShockGamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -292,19 +301,8 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4899c3f1-6f83-44d4-90fb-4b22721ffd14"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PS5"",
-                    ""action"": ""Emote"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7cffe1d4-e353-4dd1-8d14-f0b0079f08dc"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -320,6 +318,39 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keybroad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6c773af-867e-430a-ac10-6ea10a0bffea"",
+                    ""path"": ""<DualShockGamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS5"",
+                    ""action"": ""Next Form"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da8a314-a655-4e96-9e8c-50d53000ba9f"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": ""Hold(duration=0.7)"",
+                    ""processors"": """",
+                    ""groups"": ""PS5"",
+                    ""action"": ""Revert To Human"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31480494-09b6-48dc-bca5-bd9131f6c880"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keybroad"",
+                    ""action"": ""Revert To Human"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -871,7 +902,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9e64e6b5-1fa3-49b6-9cab-835473de28af"",
-                    ""path"": ""<Mouse>/position"",
+                    ""path"": ""<Pointer>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -934,9 +965,10 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
+        m_Player_NextForm = m_Player.FindAction("Next Form", throwIfNotFound: true);
+        m_Player_RevertToHuman = m_Player.FindAction("Revert To Human", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_CameraController = m_Player.FindAction("Camera Controller", throwIfNotFound: true);
-        m_Player_Emote = m_Player.FindAction("Emote", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1016,9 +1048,10 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Transform;
+    private readonly InputAction m_Player_NextForm;
+    private readonly InputAction m_Player_RevertToHuman;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_CameraController;
-    private readonly InputAction m_Player_Emote;
     private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
@@ -1027,9 +1060,10 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Transform => m_Wrapper.m_Player_Transform;
+        public InputAction @NextForm => m_Wrapper.m_Player_NextForm;
+        public InputAction @RevertToHuman => m_Wrapper.m_Player_RevertToHuman;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @CameraController => m_Wrapper.m_Player_CameraController;
-        public InputAction @Emote => m_Wrapper.m_Player_Emote;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1049,15 +1083,18 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Transform.started += instance.OnTransform;
             @Transform.performed += instance.OnTransform;
             @Transform.canceled += instance.OnTransform;
+            @NextForm.started += instance.OnNextForm;
+            @NextForm.performed += instance.OnNextForm;
+            @NextForm.canceled += instance.OnNextForm;
+            @RevertToHuman.started += instance.OnRevertToHuman;
+            @RevertToHuman.performed += instance.OnRevertToHuman;
+            @RevertToHuman.canceled += instance.OnRevertToHuman;
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
             @CameraController.started += instance.OnCameraController;
             @CameraController.performed += instance.OnCameraController;
             @CameraController.canceled += instance.OnCameraController;
-            @Emote.started += instance.OnEmote;
-            @Emote.performed += instance.OnEmote;
-            @Emote.canceled += instance.OnEmote;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -1074,15 +1111,18 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Transform.started -= instance.OnTransform;
             @Transform.performed -= instance.OnTransform;
             @Transform.canceled -= instance.OnTransform;
+            @NextForm.started -= instance.OnNextForm;
+            @NextForm.performed -= instance.OnNextForm;
+            @NextForm.canceled -= instance.OnNextForm;
+            @RevertToHuman.started -= instance.OnRevertToHuman;
+            @RevertToHuman.performed -= instance.OnRevertToHuman;
+            @RevertToHuman.canceled -= instance.OnRevertToHuman;
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
             @CameraController.started -= instance.OnCameraController;
             @CameraController.performed -= instance.OnCameraController;
             @CameraController.canceled -= instance.OnCameraController;
-            @Emote.started -= instance.OnEmote;
-            @Emote.performed -= instance.OnEmote;
-            @Emote.canceled -= instance.OnEmote;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -1260,9 +1300,10 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnTransform(InputAction.CallbackContext context);
+        void OnNextForm(InputAction.CallbackContext context);
+        void OnRevertToHuman(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCameraController(InputAction.CallbackContext context);
-        void OnEmote(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
