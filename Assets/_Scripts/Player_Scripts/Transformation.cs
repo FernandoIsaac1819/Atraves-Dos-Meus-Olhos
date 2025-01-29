@@ -38,7 +38,7 @@ public class Transformation : MonoBehaviour
     
     void Start() 
     {
-        HandleInputs.Instance.OnTransformPressed += OnTransform_Pressed;
+        HandleInputs.Instance.OnTransform_Pressed += OnTransform_Pressed;
         HandleInputs.Instance.OnTransformReleased += OnTransform_Released;
     }
 

@@ -64,15 +64,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Revert To Human"",
-                    ""type"": ""Button"",
-                    ""id"": ""7a5dd20b-d58b-4feb-abe7-b64bbf93c201"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""6004b739-eabf-4921-952e-73cff8cb308f"",
@@ -258,7 +249,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""dc6bb5a4-150c-41b5-b304-c08a1e65e0c2"",
-                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -302,7 +293,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7cffe1d4-e353-4dd1-8d14-f0b0079f08dc"",
-                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS5"",
@@ -334,23 +325,12 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0da8a314-a655-4e96-9e8c-50d53000ba9f"",
-                    ""path"": ""<DualShockGamepad>/buttonNorth"",
-                    ""interactions"": ""Hold(duration=0.7)"",
-                    ""processors"": """",
-                    ""groups"": ""PS5"",
-                    ""action"": ""Revert To Human"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""31480494-09b6-48dc-bca5-bd9131f6c880"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""id"": ""a5fc7c41-a141-4588-be7f-021cebc59e0b"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keybroad"",
-                    ""action"": ""Revert To Human"",
+                    ""action"": ""Next Form"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -966,7 +946,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
         m_Player_NextForm = m_Player.FindAction("Next Form", throwIfNotFound: true);
-        m_Player_RevertToHuman = m_Player.FindAction("Revert To Human", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_CameraController = m_Player.FindAction("Camera Controller", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
@@ -1049,7 +1028,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Transform;
     private readonly InputAction m_Player_NextForm;
-    private readonly InputAction m_Player_RevertToHuman;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_CameraController;
     private readonly InputAction m_Player_Interact;
@@ -1061,7 +1039,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Transform => m_Wrapper.m_Player_Transform;
         public InputAction @NextForm => m_Wrapper.m_Player_NextForm;
-        public InputAction @RevertToHuman => m_Wrapper.m_Player_RevertToHuman;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @CameraController => m_Wrapper.m_Player_CameraController;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
@@ -1086,9 +1063,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @NextForm.started += instance.OnNextForm;
             @NextForm.performed += instance.OnNextForm;
             @NextForm.canceled += instance.OnNextForm;
-            @RevertToHuman.started += instance.OnRevertToHuman;
-            @RevertToHuman.performed += instance.OnRevertToHuman;
-            @RevertToHuman.canceled += instance.OnRevertToHuman;
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
@@ -1114,9 +1088,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @NextForm.started -= instance.OnNextForm;
             @NextForm.performed -= instance.OnNextForm;
             @NextForm.canceled -= instance.OnNextForm;
-            @RevertToHuman.started -= instance.OnRevertToHuman;
-            @RevertToHuman.performed -= instance.OnRevertToHuman;
-            @RevertToHuman.canceled -= instance.OnRevertToHuman;
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
@@ -1301,7 +1272,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnTransform(InputAction.CallbackContext context);
         void OnNextForm(InputAction.CallbackContext context);
-        void OnRevertToHuman(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCameraController(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);

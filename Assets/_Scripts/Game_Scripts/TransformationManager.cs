@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class TransformationManager : MonoBehaviour
 {
+    public bool debug = true;
+    private Animator animator;
     public static TransformationManager Instance;
 
-    [SerializeField] private List<TransformationBase_SO> m_Transformations = new List<TransformationBase_SO>();
-    [SerializeField] private TransformationBase_SO m_humanForm;
+    [SerializeField] private List<TransformationBase_SO> m_forms = new List<TransformationBase_SO>(); // List of available forms
+    private TransformationBase_SO m_currentForm; // Currently active form
+    private TransformationBase_SO m_selectedForm; // Form selected for the next transformation
+    private Dictionary<TransformationBase_SO, GameObject> m_FormPrefabs = new Dictionary<TransformationBase_SO, GameObject>(); // Maps forms to their instantiated prefabs
+    private GameObject m_CurrentFormPrefab; // Currently active prefab
 
-    private TransformationBase_SO m_selectedForm;
-    private TransformationBase_SO m_currentForm;
-    private int m_CurrentFormIndex = 0;
-    private bool m_isHuman;
-    public bool isHuman {get{return m_isHuman;} set{m_isHuman = value;}}   
+    public TransformationBase_SO currentForm {get {return m_currentForm;} set {m_currentForm = value;}}
+
+    private int currentIndex;
 
     void Awake()
     {
@@ -30,95 +33,76 @@ public class TransformationManager : MonoBehaviour
 
     void Start()
     {
-        //sets the human form as default
-        m_currentForm = m_humanForm;
-        m_isHuman = true;
-        PlayerMovement.Instance.UpdateFormParameter(m_currentForm);
+        animator = GetComponent<Animator>();
 
-        //means there is no forms at first
-        m_selectedForm = null;
-        
-        HandleInputs.Instance.OnNextFormPressed += OnNextFormPressed;
-
-        HandleInputs.Instance.OnTransformPressed += OnTransformPressed;
-
-        HandleInputs.Instance.On_RevertHumanPressed += On_RevertHuman_Pressed;
-        HandleInputs.Instance.On_RevertHumanCanceled += On_RevertHumanCanceled;
-    }
-
-    public void TransformInto(TransformationBase_SO form) 
-    {
-        if (form == null || m_currentForm == form) return;
-
-        m_currentForm = form;
-
-        m_currentForm.CopyFrom(form);
-
-        m_isHuman = false;
-
-        PlayerMovement.Instance.UpdateFormParameter(m_currentForm);
-
-        Debug.Log("I am " + m_currentForm.name);
-    }
-
-    private TransformationBase_SO CycleThroughTransformations()
-    {
-        m_CurrentFormIndex = (m_CurrentFormIndex + 1) % m_Transformations.Count;
-
-        m_selectedForm = m_Transformations[m_CurrentFormIndex];
-        Debug.Log(m_CurrentFormIndex);
-        return m_selectedForm;
-        // Optionally update UI here
-    }
-
-    private void RevertToHuman() 
-    {
-        if(m_isHuman) return;
-
-        m_currentForm = m_humanForm;
-
-        m_currentForm.CopyFrom(m_humanForm);
-
-        PlayerMovement.Instance.UpdateFormParameter(m_currentForm);
-
-        Debug.Log("I AM HUMAN!");
-    }
-
-    public void AddNewTransformation(TransformationBase_SO newform) 
-    {
-        if(!m_Transformations.Contains(newform)) 
+        // Instantiate all form prefabs as children of the Player GameObject
+        foreach (var form in m_forms)
         {
-            m_Transformations.Add(newform);
+            GameObject formPrefab = Instantiate(form.prefab, PlayerMovement.Instance.transform.position, Quaternion.identity, PlayerMovement.Instance.transform);
+            formPrefab.SetActive(false); // Deactivate all initially
+            m_FormPrefabs.Add(form, formPrefab);
+        }
+
+        // Set the initial form
+        m_currentForm = m_forms[0];
+        m_CurrentFormPrefab = m_FormPrefabs[m_currentForm];
+        m_CurrentFormPrefab.SetActive(true);
+        m_selectedForm = m_currentForm;
+
+        HandleInputs.Instance.OnTransform_Pressed += onTransform_Pressed;
+        HandleInputs.Instance.OnNextFormPressed += onNextForm_Pressed;
+    }
+
+    public void ApplyTransformation()
+    {
+        if (m_selectedForm == null) return;
+ 
+        // Deactivate the current form's prefab
+        if (m_CurrentFormPrefab != null)
+        {
+            m_CurrentFormPrefab.SetActive(false);
+        }
+
+        // Update the current form and activate the new form's prefab
+        m_currentForm = m_selectedForm;
+        m_CurrentFormPrefab = m_FormPrefabs[m_currentForm];
+        m_CurrentFormPrefab.SetActive(true);
+
+        // Update player movement parameters
+        PlayerMovement.Instance.UpdateFormParameters(m_currentForm);
+    }
+
+    public void AddNewTransformation(TransformationBase_SO newForm)
+    {
+        if (!m_forms.Contains(newForm))
+        {
+            m_forms.Add(newForm);
+
+            // Instantiate the new form's prefab and make it a child of the Player GameObject
+            GameObject formPrefab = Instantiate(newForm.prefab, PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform.rotation, PlayerMovement.Instance.transform);
+            formPrefab.SetActive(false); // Deactivate initially
+            m_FormPrefabs.Add(newForm, formPrefab);
         }
     }
 
-    private void On_RevertHuman_Pressed(object sender, EventArgs e)
+    public TransformationBase_SO CycleNextForm()
     {
-        RevertToHuman();
+        currentIndex = (currentIndex + 1) % m_forms.Count;
+        m_selectedForm = m_forms[currentIndex];
+        Debug.Log(m_selectedForm.name);
+        return m_selectedForm;
     }
 
-    private void On_RevertHumanCanceled(object sender, EventArgs e)
+    private void onNextForm_Pressed(object sender, EventArgs e)
     {
-        Debug.Log("I AM STILL " + m_currentForm.name);
+        if(m_forms.Count == 0) return;
+        CycleNextForm();
+        Debug.Log(m_selectedForm);
     }
 
-    private void OnTransformPressed(object sender, EventArgs e)
+    private void onTransform_Pressed(object sender, EventArgs e)
     {
-        TransformInto(m_selectedForm);
+        if(m_selectedForm == m_currentForm) return;
+        animator.SetTrigger(AnimationHashCodes.Instance.TransformInto);
     }
-
-    private void OnNextFormPressed(object sender, EventArgs e)
-    {
-        if(m_Transformations.Count == 0) return;
-        CycleThroughTransformations();
-    }
-
-    //For resetting the game
-    public void ClearTransformations()
-    {
-        m_Transformations.Clear();
-        m_selectedForm = null;
-    }
-
-    
 }

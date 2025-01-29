@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1107 &-8470606678146676435
-AnimatorStateMachine:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Human Locomotion
-  m_ChildStates: []
-  m_ChildStateMachines: []
-  m_AnyStateTransitions: []
-  m_EntryTransitions: []
-  m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 130, y: -30, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 790, y: 50, z: 0}
-  m_DefaultState: {fileID: 0}
 --- !u!1101 &-6543949979991439347
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -47,25 +28,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1107 &-5291337564682272476
-AnimatorStateMachine:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Cat Locomotion
-  m_ChildStates: []
-  m_ChildStateMachines: []
-  m_AnyStateTransitions: []
-  m_EntryTransitions: []
-  m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 0}
 --- !u!206 &-4052634745819196152
 BlendTree:
   m_ObjectHideFlags: 1
@@ -123,32 +85,24 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 34496843213deff4091de15542f3de97, type: 2}
-    m_Threshold: 12.5
+    m_Threshold: 30.5
     m_Position: {x: 0, y: 0.5}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 927cc00d3373f8f4b9f9fd80d1fd9135, type: 2}
-    m_Threshold: 26
-    m_Position: {x: 0, y: 1}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Turn
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32c2a0b7c590bf5498086ae944e03249, type: 2}
-    m_Threshold: 30.5
-    m_Position: {x: -1, y: 1}
+    m_Motion: {fileID: 7400000, guid: b4b8b99f80dcf0a4dacc9f07d48524ae, type: 2}
+    m_Threshold: 61
+    m_Position: {x: -0.5, y: 0.5}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Turn
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 7a4821341b05ce74095afbf2142b7acc, type: 2}
-    m_Threshold: 35
-    m_Position: {x: 1, y: 1}
+    m_Threshold: 91.5
+    m_Position: {x: 0.5, y: 0.5}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Turn
@@ -156,7 +110,7 @@ BlendTree:
   m_BlendParameter: Turn
   m_BlendParameterY: Forward
   m_MinThreshold: 0
-  m_MaxThreshold: 35
+  m_MaxThreshold: 91.5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 3
@@ -288,43 +242,55 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Forward
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: AirbornSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: JumpLeg
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: OnGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsRunning
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsMoving
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
+  - m_Name: Human
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Lacrima
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -450,28 +416,24 @@ AnimatorStateMachine:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Base Layer
-  m_ChildStates: []
+  m_ChildStates:
+  - serializedVersion: 1
+    m_State: {fileID: 4444119693412362386}
+    m_Position: {x: 10, y: -510, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5993329721641228243}
+    m_Position: {x: 300, y: -440, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 3752746359874572996}
+    m_Position: {x: 10, y: -340, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -1194500838306348154}
     m_Position: {x: 820, y: -20, z: 0}
-  - serializedVersion: 1
-    m_StateMachine: {fileID: -8470606678146676435}
-    m_Position: {x: 0, y: -800, z: 0}
-  - serializedVersion: 1
-    m_StateMachine: {fileID: -5291337564682272476}
-    m_Position: {x: 240, y: -800, z: 0}
-  - serializedVersion: 1
-    m_StateMachine: {fileID: 6190101269436784883}
-    m_Position: {x: 0, y: -380, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
   - first: {fileID: -1194500838306348154}
-    second: []
-  - first: {fileID: -8470606678146676435}
-    second: []
-  - first: {fileID: -5291337564682272476}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -210, y: -450, z: 0}
@@ -580,7 +542,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Human Locomotion blending tree
+  m_Name: Walking blend tree
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -600,31 +562,3 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1107 &6190101269436784883
-AnimatorStateMachine:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Human State Machine
-  m_ChildStates:
-  - serializedVersion: 1
-    m_State: {fileID: 4444119693412362386}
-    m_Position: {x: 530, y: -90, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 5993329721641228243}
-    m_Position: {x: 530, y: 100, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 3752746359874572996}
-    m_Position: {x: 330, y: 10, z: 0}
-  m_ChildStateMachines: []
-  m_AnyStateTransitions: []
-  m_EntryTransitions: []
-  m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 190, y: -130, z: 0}
-  m_EntryPosition: {x: 190, y: -80, z: 0}
-  m_ExitPosition: {x: -410, y: 0, z: 0}
-  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 4444119693412362386}

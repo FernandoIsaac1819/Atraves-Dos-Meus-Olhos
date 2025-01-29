@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Revert To Human",
-                    "type": "Button",
-                    "id": "7a5dd20b-d58b-4feb-abe7-b64bbf93c201",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Run",
                     "type": "Button",
                     "id": "6004b739-eabf-4921-952e-73cff8cb308f",
@@ -236,7 +227,7 @@
                 {
                     "name": "",
                     "id": "dc6bb5a4-150c-41b5-b304-c08a1e65e0c2",
-                    "path": "<DualShockGamepad>/buttonNorth",
+                    "path": "<DualShockGamepad>/rightTrigger",
                     "interactions": "Tap",
                     "processors": "",
                     "groups": "PS5",
@@ -280,7 +271,7 @@
                 {
                     "name": "",
                     "id": "7cffe1d4-e353-4dd1-8d14-f0b0079f08dc",
-                    "path": "<DualShockGamepad>/buttonWest",
+                    "path": "<DualShockGamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "PS5",
@@ -312,23 +303,12 @@
                 },
                 {
                     "name": "",
-                    "id": "0da8a314-a655-4e96-9e8c-50d53000ba9f",
-                    "path": "<DualShockGamepad>/buttonNorth",
-                    "interactions": "Hold(duration=0.7)",
-                    "processors": "",
-                    "groups": "PS5",
-                    "action": "Revert To Human",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "31480494-09b6-48dc-bca5-bd9131f6c880",
-                    "path": "<Keyboard>/z",
+                    "id": "a5fc7c41-a141-4588-be7f-021cebc59e0b",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keybroad",
-                    "action": "Revert To Human",
+                    "action": "Next Form",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

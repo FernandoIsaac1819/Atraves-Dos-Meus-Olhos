@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04d904f6f3173f440858dff2d96e5ec7, type: 3}
-  m_Name: Human
+  m_Name: Tiger
   m_EditorClassIdentifier: 
-  name: Human
+  name: Tiger
   icon: {fileID: 0}
-  prefab: {fileID: 146757039825870031, guid: ee19528dd53cc024e8991192f41170ef, type: 3}
-  animator: {fileID: 5042698689365867878, guid: ee19528dd53cc024e8991192f41170ef,
+  prefab: {fileID: 60492538683335567, guid: 55f3ed0fe5d388a469cbc6965bff8212, type: 3}
+  animator: {fileID: 1120021479482353060, guid: 55f3ed0fe5d388a469cbc6965bff8212,
     type: 3}
-  walkingspeed: 1
-  runningSpeed: 2
-  move_turning_speed: 270
-  idle_turning_speed: 270
-  jumpPower: 7
-  fallMultiplier: 2
+  walkingspeed: 6
+  runningSpeed: 3
+  move_turning_speed: 720
+  idle_turning_speed: 360
+  jumpPower: 11
+  fallMultiplier: 3
   air_control_amount: 3
-  jump_cooldown: 1.5
+  jump_cooldown: 0.5
