@@ -6,7 +6,7 @@ public class TransformationBase_SO : ScriptableObject
     public new string name;
     public Sprite icon;
     public GameObject prefab;
-    public Animator animator;
+    public Avatar avatar;
 
     [Header("Physical stats")]
     public float walkingspeed;

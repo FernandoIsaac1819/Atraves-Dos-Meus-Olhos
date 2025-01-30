@@ -5,7 +5,7 @@ using UnityEngine;
 public class TransformationManager : MonoBehaviour
 {
     public bool debug = true;
-    private Animator animator;
+    [SerializeField] private Animator TransformAnim;
     public static TransformationManager Instance;
 
     [SerializeField] private List<TransformationBase_SO> m_forms = new List<TransformationBase_SO>(); // List of available forms
@@ -33,8 +33,6 @@ public class TransformationManager : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-
         // Instantiate all form prefabs as children of the Player GameObject
         foreach (var form in m_forms)
         {
@@ -103,6 +101,6 @@ public class TransformationManager : MonoBehaviour
     private void onTransform_Pressed(object sender, EventArgs e)
     {
         if(m_selectedForm == m_currentForm) return;
-        animator.SetTrigger(AnimationHashCodes.Instance.TransformInto);
+        TransformAnim.SetTrigger(AnimationHashCodes.Instance.TransformInto);
     }
 }

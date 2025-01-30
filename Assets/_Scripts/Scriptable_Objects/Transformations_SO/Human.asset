@@ -15,8 +15,7 @@ MonoBehaviour:
   name: Human
   icon: {fileID: 0}
   prefab: {fileID: 146757039825870031, guid: ee19528dd53cc024e8991192f41170ef, type: 3}
-  animator: {fileID: 5042698689365867878, guid: ee19528dd53cc024e8991192f41170ef,
-    type: 3}
+  avatar: {fileID: 9000000, guid: f0955f8097546724ca5e52bd0951e0cf, type: 3}
   walkingspeed: 1
   runningSpeed: 2
   move_turning_speed: 270

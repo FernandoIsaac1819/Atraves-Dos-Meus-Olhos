@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance { get; private set; }
     private Rigidbody m_Rigidbody;
     private Animator m_Animator;
+    
 
     [Header("Movement")]
     [SerializeField] private float m_MovementSpeed = 5f;
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleAnimations();
+        Debug.Log(TransformationManager.Instance.currentForm);
     }
 
     void FixedUpdate()
@@ -156,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
         m_JumpCoolDown = form.jump_cooldown;
         fallMultiplier = form.fallMultiplier;
         m_RotationSpeed = form.move_turning_speed;
+        m_Animator.avatar = form.avatar; 
     }
 
     /// <summary>
