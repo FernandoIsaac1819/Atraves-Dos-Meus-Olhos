@@ -19,7 +19,7 @@ public class ObtainTransformation : MonoBehaviour, IInteractable
 
     private IEnumerator AddTransformation(TransformationBase_SO form) 
     {
-        TransformationManager.Instance.AddNewTransformation(form);
+        // TransformationManager.Instance.AddNewTransformation(form);
         yield return new WaitForSeconds(3);
         gameObject.SetActive(false);
     }

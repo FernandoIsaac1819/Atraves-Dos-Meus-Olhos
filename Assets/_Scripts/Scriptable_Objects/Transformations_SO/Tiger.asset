@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Tiger
   icon: {fileID: 0}
-  prefab: {fileID: 60492538683335567, guid: 55f3ed0fe5d388a469cbc6965bff8212, type: 3}
+  prefab: {fileID: 919132149155446097, guid: b3a9181f44ffa114ab438ddc065b184a, type: 3}
   avatar: {fileID: 9000000, guid: b3a9181f44ffa114ab438ddc065b184a, type: 3}
+  animatorController: {fileID: 0}
   walkingspeed: 6
   runningSpeed: 3
   move_turning_speed: 720

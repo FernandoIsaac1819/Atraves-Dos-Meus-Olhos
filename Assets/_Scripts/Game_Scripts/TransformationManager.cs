@@ -4,103 +4,100 @@ using UnityEngine;
 
 public class TransformationManager : MonoBehaviour
 {
-    public bool debug = true;
-    [SerializeField] private Animator TransformAnim;
     public static TransformationManager Instance;
 
-    [SerializeField] private List<TransformationBase_SO> m_forms = new List<TransformationBase_SO>(); // List of available forms
-    private TransformationBase_SO m_currentForm; // Currently active form
-    private TransformationBase_SO m_selectedForm; // Form selected for the next transformation
-    private Dictionary<TransformationBase_SO, GameObject> m_FormPrefabs = new Dictionary<TransformationBase_SO, GameObject>(); // Maps forms to their instantiated prefabs
-    private GameObject m_CurrentFormPrefab; // Currently active prefab
+    [SerializeField] private Animator TransformationAnim;
+    [SerializeField] private List<TransformationBase_SO> transformationForms = new List<TransformationBase_SO>();
+    
+    public static TransformationBase_SO currentForm;
+    private TransformationBase_SO selectedForm;
+    private int currentIndex = 0;
 
-    public TransformationBase_SO currentForm {get {return m_currentForm;} set {m_currentForm = value;}}
+    private GameObject currentModel;  // ✅ The currently active model
+    private Transform modelParent;    // ✅ Parent where models are stored
 
-    private int currentIndex;
+    private bool canTransform = true;
+    [SerializeField] private float transformationCooldown = 2f;
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    void Start()
+    private void Start()
     {
-        // Instantiate all form prefabs as children of the Player GameObject
-        foreach (var form in m_forms)
+        currentForm = transformationForms[0];
+        selectedForm = currentForm;
+
+        // ✅ Find where to store models (inside Player)
+        modelParent = PlayerMovement.Instance.transform.Find("Visuals holder");
+        if (modelParent == null)
         {
-            GameObject formPrefab = Instantiate(form.prefab, PlayerMovement.Instance.transform.position, Quaternion.identity, PlayerMovement.Instance.transform);
-            formPrefab.SetActive(false); // Deactivate all initially
-            m_FormPrefabs.Add(form, formPrefab);
+            modelParent = new GameObject("Visuals holder").transform;
+            modelParent.SetParent(PlayerMovement.Instance.transform);
         }
 
-        // Set the initial form
-        m_currentForm = m_forms[0];
-        m_CurrentFormPrefab = m_FormPrefabs[m_currentForm];
-        m_CurrentFormPrefab.SetActive(true);
-        m_selectedForm = m_currentForm;
+        // ✅ Spawn the initial model
+        SwapModel(currentForm);
 
-        HandleInputs.Instance.OnTransform_Pressed += onTransform_Pressed;
-        HandleInputs.Instance.OnNextFormPressed += onNextForm_Pressed;
+        HandleInputs.Instance.OnTransform_Pressed += OnTransformPressed;
+        HandleInputs.Instance.OnNextFormPressed += OnNextFormPressed;
     }
 
     public void ApplyTransformation()
     {
-        if (m_selectedForm == null) return;
- 
-        // Deactivate the current form's prefab
-        if (m_CurrentFormPrefab != null)
+        if (!canTransform) return;
+        canTransform = false;
+
+        // ✅ Swap model & update player stats
+        PlayerMovement.Instance.UpdateFormParameters(selectedForm);
+        SwapModel(selectedForm);
+
+        // ✅ Set cooldown
+        Invoke(nameof(ResetCooldown), transformationCooldown);
+    }
+
+    private void SwapModel(TransformationBase_SO form)
+    {
+        if (currentModel != null) Destroy(currentModel); // ✅ Destroy the old model
+
+        // ✅ Instantiate new model inside "ModelParent"
+        currentModel = Instantiate(form.prefab, modelParent);
+        currentModel.transform.localPosition = Vector3.zero;
+        currentModel.transform.localRotation = Quaternion.identity;
+
+        // ✅ Rebind Animator to fix animation issue
+        RebindAnimator(form);
+    }
+
+    private void RebindAnimator(TransformationBase_SO form)
+    {
+        Animator playerAnimator = PlayerMovement.Instance.GetComponent<Animator>();
+
+        if (form.avatar != null)
         {
-            m_CurrentFormPrefab.SetActive(false);
+            playerAnimator.avatar = form.avatar;
         }
 
-        // Update the current form and activate the new form's prefab
-        m_currentForm = m_selectedForm;
-        m_CurrentFormPrefab = m_FormPrefabs[m_currentForm];
-        m_CurrentFormPrefab.SetActive(true);
-
-        // Update player movement parameters
-        PlayerMovement.Instance.UpdateFormParameters(m_currentForm);
-    }
-
-    public void AddNewTransformation(TransformationBase_SO newForm)
-    {
-        if (!m_forms.Contains(newForm))
+        if (form.animatorController != null)
         {
-            m_forms.Add(newForm);
-
-            // Instantiate the new form's prefab and make it a child of the Player GameObject
-            GameObject formPrefab = Instantiate(newForm.prefab, PlayerMovement.Instance.transform.position, PlayerMovement.Instance.transform.rotation, PlayerMovement.Instance.transform);
-            formPrefab.SetActive(false); // Deactivate initially
-            m_FormPrefabs.Add(newForm, formPrefab);
+            playerAnimator.runtimeAnimatorController = form.animatorController;
         }
+
+        // ✅ Force Unity to reset the animation bindings
+        playerAnimator.Rebind();
+        playerAnimator.Update(0);
     }
 
-    public TransformationBase_SO CycleNextForm()
+    public void CycleNextForm()
     {
-        currentIndex = (currentIndex + 1) % m_forms.Count;
-        m_selectedForm = m_forms[currentIndex];
-        Debug.Log(m_selectedForm.name);
-        return m_selectedForm;
+        if (transformationForms.Count == 0) return;
+        currentIndex = (currentIndex + 1) % transformationForms.Count;
+        selectedForm = transformationForms[currentIndex];
     }
 
-    private void onNextForm_Pressed(object sender, EventArgs e)
-    {
-        if(m_forms.Count == 0) return;
-        CycleNextForm();
-        Debug.Log(m_selectedForm);
-    }
-
-    private void onTransform_Pressed(object sender, EventArgs e)
-    {
-        if(m_selectedForm == m_currentForm) return;
-        TransformAnim.SetTrigger(AnimationHashCodes.Instance.TransformInto);
-    }
+    private void ResetCooldown() => canTransform = true;
+    private void OnNextFormPressed(object sender, EventArgs e) => CycleNextForm();
+    private void OnTransformPressed(object sender, EventArgs e) => TransformationAnim.SetTrigger(AnimationHashCodes.Instance.TransformInto);
 }

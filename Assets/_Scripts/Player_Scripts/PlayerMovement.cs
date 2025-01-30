@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement Instance { get; private set; }
     private Rigidbody m_Rigidbody;
-    private Animator m_Animator;
+    public static Animator m_Animator;
     
 
     [Header("Movement")]
@@ -58,13 +58,12 @@ public class PlayerMovement : MonoBehaviour
         HandleInputs.Instance.OnJumpPressed += OnJump_Pressed;
         HandleInputs.Instance.OnJumpReleased += OnJump_Released;
 
-        UpdateFormParameters(TransformationManager.Instance.currentForm);
+        UpdateFormParameters(TransformationManager.currentForm);
     }
 
     void Update()
     {
         HandleAnimations();
-        Debug.Log(TransformationManager.Instance.currentForm);
     }
 
     void FixedUpdate()
@@ -152,13 +151,16 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void UpdateFormParameters(TransformationBase_SO form)
     {
-        m_MovementSpeed = form.walkingspeed;
-        m_JumpPower = form.jumpPower;
-        m_AirControlAmount = form.air_control_amount;
-        m_JumpCoolDown = form.jump_cooldown;
-        fallMultiplier = form.fallMultiplier;
-        m_RotationSpeed = form.move_turning_speed;
-        m_Animator.avatar = form.avatar; 
+    m_MovementSpeed = form.walkingspeed;
+    m_JumpPower = form.jumpPower;
+    m_AirControlAmount = form.air_control_amount;
+    m_JumpCoolDown = form.jump_cooldown;
+    fallMultiplier = form.fallMultiplier;
+    m_RotationSpeed = form.move_turning_speed;
+
+    // m_Animator.avatar = form.avatar;
+    m_Animator.Rebind();
+    m_Animator.Update(0);
     }
 
     /// <summary>

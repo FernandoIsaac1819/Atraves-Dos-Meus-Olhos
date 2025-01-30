@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Lacrima
   icon: {fileID: 0}
-  prefab: {fileID: 427210399887230991, guid: 769bc7c564683cd48b71cdefd3f22692, type: 3}
+  prefab: {fileID: 919132149155446097, guid: 352d1f5f8adda5445a0e0f7f1f21e172, type: 3}
   avatar: {fileID: 9000000, guid: 352d1f5f8adda5445a0e0f7f1f21e172, type: 3}
+  animatorController: {fileID: 0}
   walkingspeed: 1
   runningSpeed: 3
   move_turning_speed: 360

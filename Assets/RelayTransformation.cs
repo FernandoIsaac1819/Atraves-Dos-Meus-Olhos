@@ -7,4 +7,9 @@ public class RelayTransformation : MonoBehaviour
     {
         TransformationManager.Instance.ApplyTransformation();
     }
+
+    void ApplyAvatar() 
+    {
+        PlayerMovement.m_Animator.avatar = TransformationManager.currentForm.avatar;
+    }
 }
