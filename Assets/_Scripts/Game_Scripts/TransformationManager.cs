@@ -9,8 +9,12 @@ public class TransformationManager : MonoBehaviour
     [SerializeField] private Animator TransformationAnim;
     [SerializeField] private List<TransformationBase_SO> transformationForms = new List<TransformationBase_SO>();
     
-    public static TransformationBase_SO currentForm;
-    private TransformationBase_SO selectedForm;
+    private TransformationBase_SO m_currentForm;
+    private TransformationBase_SO m_selectedForm;
+
+    public TransformationBase_SO currentForm {get{return m_currentForm;} set{m_currentForm = value;}}
+    public TransformationBase_SO selectedForm {get{return m_selectedForm;} set{m_selectedForm = value;}}
+
     private int currentIndex = 0;
 
     private GameObject currentModel;  // ✅ The currently active model
@@ -27,8 +31,8 @@ public class TransformationManager : MonoBehaviour
 
     private void Start()
     {
-        currentForm = transformationForms[0];
-        selectedForm = currentForm;
+        m_currentForm = transformationForms[0];
+        m_selectedForm = m_currentForm;
 
         // ✅ Find where to store models (inside Player)
         modelParent = PlayerMovement.Instance.transform.Find("Visuals holder");
@@ -39,7 +43,7 @@ public class TransformationManager : MonoBehaviour
         }
 
         // ✅ Spawn the initial model
-        SwapModel(currentForm);
+        SwapModel(m_currentForm);
 
         HandleInputs.Instance.OnTransform_Pressed += OnTransformPressed;
         HandleInputs.Instance.OnNextFormPressed += OnNextFormPressed;
@@ -50,11 +54,11 @@ public class TransformationManager : MonoBehaviour
         if (!canTransform) return;
         canTransform = false;
 
-        // ✅ Swap model & update player stats
-        PlayerMovement.Instance.UpdateFormParameters(selectedForm);
-        SwapModel(selectedForm);
+        // Swap model & update player stats
+        PlayerMovement.Instance.UpdateFormParameters(m_selectedForm);
+        SwapModel(m_selectedForm);
 
-        // ✅ Set cooldown
+        // Set cooldown for transformation
         Invoke(nameof(ResetCooldown), transformationCooldown);
     }
 
@@ -68,7 +72,7 @@ public class TransformationManager : MonoBehaviour
         currentModel.transform.localRotation = Quaternion.identity;
 
         // ✅ Rebind Animator to fix animation issue
-        RebindAnimator(form);
+        //RebindAnimator(form);
     }
 
     private void RebindAnimator(TransformationBase_SO form)
@@ -94,7 +98,7 @@ public class TransformationManager : MonoBehaviour
     {
         if (transformationForms.Count == 0) return;
         currentIndex = (currentIndex + 1) % transformationForms.Count;
-        selectedForm = transformationForms[currentIndex];
+        m_selectedForm = transformationForms[currentIndex];
     }
 
     private void ResetCooldown() => canTransform = true;

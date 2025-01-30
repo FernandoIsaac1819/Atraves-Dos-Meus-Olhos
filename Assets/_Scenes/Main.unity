@@ -6470,6 +6470,7 @@ MonoBehaviour:
   transformationForms:
   - {fileID: 11400000, guid: fb5141c3af45cc3498e81a0fd2ff2a56, type: 2}
   - {fileID: 11400000, guid: 4e196e2f7b7dcb84282a0170237ba63a, type: 2}
+  - {fileID: 11400000, guid: f5f12d3b4f7ef2045bb4870411aa6446, type: 2}
   transformationCooldown: 2
 --- !u!114 &4943098899417568700
 MonoBehaviour:
@@ -7125,7 +7126,7 @@ Transform:
   m_GameObject: {fileID: 318609345659565645}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0.84, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 223765080498082178}

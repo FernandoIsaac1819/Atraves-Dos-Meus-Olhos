@@ -1,0 +1,7 @@
+The transformation mechanic technically works. The issue is i am using animations bound to 1 model and trying to sub the avatars. This is a problem because the animations are already bound to the 1 model.
+
+The reason it seemed to have worked was because the way i set up the script, forced the animator to rebind. so i took off the avatar and then reset it when the character changed. You can see that the avatar did not change to match the other form. all that happened is the animator took the original avatar away, changed it and then set it back to the original. 
+
+I need to create the new characters and then add their avatar to their own animations to successfully complete the transformation mechanic.
+
+I may also want to change the animation of the transformation. Maybe apply the dissolve to the materials so as to truly materialize and dematerialize.

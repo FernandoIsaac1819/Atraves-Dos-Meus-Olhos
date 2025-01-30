@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement Instance { get; private set; }
     private Rigidbody m_Rigidbody;
-    public static Animator m_Animator;
+    public static Animator m_playerAnim;
     
 
     [Header("Movement")]
@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     // GETTERS AND SETTERS
     public Rigidbody Rigidbody { get { return m_Rigidbody; } set { m_Rigidbody = value; } }
+    public Animator PlayerAnimator { get { return m_playerAnim; } set { m_playerAnim = value; } }
 
     void Awake()
     {
@@ -53,12 +54,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Animator = GetComponent<Animator>();
+        m_playerAnim = GetComponent<Animator>();
 
         HandleInputs.Instance.OnJumpPressed += OnJump_Pressed;
         HandleInputs.Instance.OnJumpReleased += OnJump_Released;
 
-        UpdateFormParameters(TransformationManager.currentForm);
+        UpdateFormParameters(TransformationManager.Instance.currentForm);
     }
 
     void Update()
@@ -157,10 +158,7 @@ public class PlayerMovement : MonoBehaviour
     m_JumpCoolDown = form.jump_cooldown;
     fallMultiplier = form.fallMultiplier;
     m_RotationSpeed = form.move_turning_speed;
-
-    // m_Animator.avatar = form.avatar;
-    m_Animator.Rebind();
-    m_Animator.Update(0);
+    m_playerAnim.avatar = form.avatar;
     }
 
     /// <summary>
@@ -197,16 +195,16 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void HandleAnimations()
     {
-        m_Animator.applyRootMotion = true;
+        m_playerAnim.applyRootMotion = true;
 
         if (!m_IsGrounded)
         {
-            m_Animator.SetFloat(AnimationHashCodes.Instance.AirbornSpeed, Rigidbody.velocity.y);
+            m_playerAnim.SetFloat(AnimationHashCodes.Instance.AirbornSpeed, Rigidbody.velocity.y);
         }
 
-        m_Animator.SetBool(AnimationHashCodes.Instance.IsGrounded, m_IsGrounded);
-        m_Animator.SetFloat(AnimationHashCodes.Instance.Turn, m_TurnAmount, 0.1f, Time.deltaTime);
-        m_Animator.SetFloat(AnimationHashCodes.Instance.Forward, m_ForwardAmount, 0.1f, Time.deltaTime);
+        m_playerAnim.SetBool(AnimationHashCodes.Instance.IsGrounded, m_IsGrounded);
+        m_playerAnim.SetFloat(AnimationHashCodes.Instance.Turn, m_TurnAmount, 0.1f, Time.deltaTime);
+        m_playerAnim.SetFloat(AnimationHashCodes.Instance.Forward, m_ForwardAmount, 0.1f, Time.deltaTime);
     }
 
     private void OnJump_Pressed(object sender, EventArgs e)
